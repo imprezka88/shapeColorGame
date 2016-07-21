@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:weightSum="1"
+              android:background="@drawable/main_screen_background"
+              android:id="@+id/main_screen"
+              android:orientation="vertical"
+              tools:context="com.ewareza.com.ewareza.shapegame.app.main.MainScreenActivity">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.65"
+            android:layout_gravity="top|right"
+            android:layout_marginTop="@dimen/main_sounds_buttons_margin_top"
+            android:layout_marginRight="@dimen/main_sounds_buttons_margin_right">
+
+        <ImageButton
+                android:layout_width="@dimen/main_sounds_button_width"
+                android:layout_height="@dimen/main_sounds_button_height"
+                android:id="@+id/sounds_on_off"
+                android:src="@drawable/sounds_on"
+                android:adjustViewBounds="false"
+                android:background="@drawable/round_button"
+                android:scaleType="fitXY"
+                android:padding="@dimen/main_sounds_button_padding"/>
+
+        <ImageButton
+                android:layout_width="@dimen/main_speaking_button_width"
+                android:layout_height="@dimen/main_speaking_button_height"
+                android:id="@+id/speaking_on_off"
+                android:src="@drawable/speaking_on"
+                android:adjustViewBounds="true"
+                android:background="@drawable/round_button"
+                android:scaleType="fitXY"
+                android:padding="@dimen/main_sounds_button_padding"
+                android:layout_marginLeft="@dimen/main_speaking_button_margin_left"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp">
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            <ImageButton
+                    android:layout_width="@dimen/main_start_game_button_width"
+                    android:layout_height="@dimen/main_start_game_button_height"
+                    android:id="@+id/newLearningGameButton"
+                    android:src="@drawable/learning_button_image"
+                    android:background="@drawable/new_game_border"
+                    android:layout_marginRight="5dp"
+                    android:scaleType="fitXY"
+                    android:padding="5dp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="nauka"
+                    android:id="@+id/textView"
+                    android:layout_gravity="top|center_horizontal"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold"
+                    android:typeface="monospace"
+                    android:textColor="#000000"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:weightSum="1"
+                android:showDividers="middle|beginning|end|none"
+                android:layout_gravity="left">
+
+            <ImageButton
+                    android:layout_width="@dimen/main_start_game_button_width"
+                    android:layout_height="@dimen/main_start_game_button_height"
+                    android:id="@+id/newShapesGameButton"
+                    android:src="@drawable/shape_game_button_image"
+                    android:clickable="true"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/new_game_border"
+                    android:layout_marginLeft="5dp"
+                    android:scaleType="fitXY"
+                    android:padding="5dp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="kształty"
+                    android:id="@+id/shapesGameText"
+                    android:textColor="#000000"
+                    android:layout_gravity="center_horizontal"
+                    android:typeface="monospace"
+                    android:textStyle="bold"
+                    android:singleLine="false"
+                    android:textAppearance="@android:style/TextAppearance.Large"
+                    android:password="false"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:layout_weight="0.65">
+
+            <ImageButton
+                    android:layout_width="@dimen/main_start_game_button_width"
+                    android:layout_height="@dimen/main_start_game_button_height"
+                    android:id="@+id/newColorGameButton"
+                    android:layout_weight="2.06"
+                    android:src="@drawable/color_game_button_imgage"
+                    android:background="@drawable/new_game_border"
+                    android:visibility="visible"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="5dp"
+                    android:scaleType="fitXY"
+                    android:padding="5dp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="kolory"
+                    android:id="@+id/colorsGameText"
+                    android:layout_gravity="center_horizontal"
+                    android:visibility="visible"
+                    android:textColor="#000000"
+                    android:typeface="monospace"
+                    android:textStyle="bold"
+                    android:textIsSelectable="false"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

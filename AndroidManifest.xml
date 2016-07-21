@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.ewareza.android"
+          android:versionCode="1"
+          android:versionName="1.0-SNAPSHOT">
+
+    <supports-screens
+            android:resizeable="true"
+            android:smallScreens="true"
+            android:normalScreens="true"
+            android:largeScreens="true"
+            android:xlargeScreens="true"
+            android:anyDensity="true"
+            />
+
+    <uses-sdk
+            android:minSdkVersion="11"
+            android:targetSdkVersion="16"/>
+
+    <application
+            android:allowBackup="true"
+            android:name="com.ewareza.shapegame.app.ShapeGameApplication"
+            android:label="@string/app_name"
+            android:icon="@drawable/ic_launcher"
+            android:theme="@style/AppTheme">
+        <activity
+                android:name="com.ewareza.shapegame.app.shapeColorGame.ShapeGameActivity"
+                android:label="shapeGame"
+                android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+                android:screenOrientation="landscape">
+        </activity>
+        <activity
+                android:name="com.ewareza.shapegame.app.learning.LearningGameActivity"
+                android:label="learningGame"
+                android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+                android:screenOrientation="landscape">
+        </activity>
+        <activity
+                android:name="com.ewareza.shapegame.app.main.MainScreenActivity"
+                android:label="Kształty i kolory"
+                android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+                android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

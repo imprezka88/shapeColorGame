@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/learningScreen"
+        android:background="@drawable/learning_background"
+        tools:context="com.ewareza.com.ewareza.shapegame.app.learning.LearningGameActivity">
+
+        <ImageView
+                android:layout_width="@dimen/learning_frog_width"
+                android:layout_height="@dimen/learning_frog_height"
+                android:id="@+id/learningFrog"
+                android:background="@drawable/talking_frog_animation"
+                android:layout_marginLeft="@dimen/learning_frog_margin_left"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="@dimen/learning_frog_margin_bottom"/>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/startGameButtons"
+                android:layout_gravity="bottom|right"
+                android:layout_marginRight="@dimen/learning_start_game_buttons_margin_right"
+                android:layout_marginBottom="@dimen/learning_start_game_buttons_margin_bottom">
+
+                <ImageButton
+                        android:layout_width="@dimen/learning_start_game_button_width"
+                        android:layout_height="@dimen/learning_start_game_button_height"
+                        android:id="@+id/startShapeGameButton"
+                        android:layout_gravity="bottom"
+                        android:adjustViewBounds="false"
+                        android:clickable="true"
+                        android:src="@drawable/shape_game_button_image"
+                        android:scaleType="fitXY"
+                        android:padding="5dp"
+                        android:background="@drawable/new_game_border"/>
+
+                <ImageButton
+                        android:layout_width="@dimen/learning_start_game_button_width"
+                        android:layout_height="@dimen/learning_start_game_button_height"
+                        android:id="@+id/startColorGameButton"
+                        android:focusable="true"
+                        android:layout_marginLeft="@dimen/learning_start_game_button_left_margin_left"
+                        android:clickable="true"
+                        android:src="@drawable/color_game_button_imgage"
+                        android:scaleType="fitXY"
+                        android:padding="5dp"
+                        android:background="@drawable/new_game_border"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|top"
+                android:background="@null"
+                >
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/circle"
+                        android:visibility="visible"
+                        />
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/oval"
+                        android:visibility="visible"
+                        />
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                >
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/square"
+                        android:visibility="visible"/>
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/triangle"
+                        android:visibility="visible"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                >
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/star"
+                        android:visibility="visible"/>
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/heart"
+                        android:visibility="visible"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/rectangle"
+                        android:visibility="visible"/>
+        </LinearLayout>
+</FrameLayout>
