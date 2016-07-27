@@ -5,14 +5,14 @@ import android.graphics.drawable.Drawable;
 import android.view.SurfaceHolder;
 import com.ewareza.shapegame.app.DisplayThread;
 import com.ewareza.shapegame.app.utils.GameUtils;
-import com.ewareza.shapegame.resources.DimenRes;
+import com.ewareza.shapegame.resources.ScaledDimenRes;
 import com.ewareza.shapegame.resources.ImageResources;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
-public class ShapeGameDisplayThread extends DisplayThread {
+class ShapeGameDisplayThread extends DisplayThread {
     private final static Logger Log = Logger.getLogger(ShapeGameDisplayThread.class.getName());
     private AtomicInteger left;
     private AtomicInteger top;
@@ -23,7 +23,7 @@ public class ShapeGameDisplayThread extends DisplayThread {
     private int gameOverImageVerticalSpeed = 10;
     private int gameOverImageHorizontalSpeed = 3;
 
-    public ShapeGameDisplayThread(SurfaceHolder surfaceHolder) {
+    ShapeGameDisplayThread(SurfaceHolder surfaceHolder) {
         super(surfaceHolder);
         initGameOverImagePosition();
     }
@@ -53,10 +53,10 @@ public class ShapeGameDisplayThread extends DisplayThread {
     }
 
     private void initGameOverImagePosition() {
-        left = new AtomicInteger(DimenRes.getScreenWidth() / 2 - 400);
-        top = new AtomicInteger(DimenRes.getScreenHeight());
-        right = new AtomicInteger(DimenRes.getScreenWidth() / 2);
-        bottom = new AtomicInteger(DimenRes.getScreenHeight() + 400);
+        left = new AtomicInteger(ScaledDimenRes.getScreenWidthInPx() / 2 - 400);
+        top = new AtomicInteger(ScaledDimenRes.getScreenHeightInPx());
+        right = new AtomicInteger(ScaledDimenRes.getScreenWidthInPx() / 2);
+        bottom = new AtomicInteger(ScaledDimenRes.getScreenHeightInPx() + 400);
     }
 
     private void drawShapes(Canvas canvas) {
@@ -64,8 +64,8 @@ public class ShapeGameDisplayThread extends DisplayThread {
     }
 
     private void drawGameTitle(Canvas canvas) {
-        int gameTitleHeight = DimenRes.getGameTitleHeight();
-        int screenWidth = DimenRes.getScreenWidth();
+        int gameTitleHeight = ScaledDimenRes.getGameTitleHeightInPx();
+        int screenWidth = ScaledDimenRes.getScreenWidthInPx();
 
         ShapeColorGame.drawGameTitleShape(canvas);
         canvas.drawLine(0, gameTitleHeight, screenWidth, gameTitleHeight + 1, GameUtils.getGameTitleLinePaint());

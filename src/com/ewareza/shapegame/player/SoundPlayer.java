@@ -1,20 +1,26 @@
 package com.ewareza.shapegame.player;
 
 import android.media.MediaPlayer;
-import com.ewareza.shapegame.app.Game;
+import com.ewareza.shapegame.app.PersistentGameSettings;
 
-public class SoundPlayer implements Player {
-    private MediaPlayer delegate = new MediaPlayer();
-    private int identifier;
+class SoundPlayer implements Player {
+    private final MediaPlayer delegate;
+    private final int identifier;
+    private final String soundName;
 
-    private SoundPlayer(MediaPlayer delegate, int identifier) {
+    private SoundPlayer(MediaPlayer delegate, int identifier, String soundName) {
         this.delegate = delegate;
         this.identifier = identifier;
-
+        this.soundName = soundName;
     }
 
-    public static SoundPlayer createSoundPlayer(MediaPlayer mediaPlayer, int identifier) {
-        return new SoundPlayer(mediaPlayer, identifier);
+    static SoundPlayer createSoundPlayer(MediaPlayer mediaPlayer, int identifier, String soundName) {
+        return new SoundPlayer(mediaPlayer, identifier, soundName);
+    }
+
+    @Override
+    public String getSoundName() {
+        return soundName;
     }
 
     @Override
@@ -24,7 +30,7 @@ public class SoundPlayer implements Player {
 
     @Override
     public void start() {
-        if(Game.getSoundsEnabled())
+        if(PersistentGameSettings.getSoundsEnabled())
             delegate.start();
     }
 
@@ -67,4 +73,5 @@ public class SoundPlayer implements Player {
     public void release() {
         delegate.release();
     }
+
 }

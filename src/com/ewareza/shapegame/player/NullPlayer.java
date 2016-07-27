@@ -9,6 +9,11 @@ public class NullPlayer implements Player {
     }
 
     @Override
+    public String getSoundName() {
+        return "";
+    }
+
+    @Override
     public void start() {
     }
 
@@ -43,5 +48,7 @@ public class NullPlayer implements Player {
 
     @Override
     public void release() {
+
     }
+
 }

@@ -5,6 +5,8 @@ import android.media.MediaPlayer;
 public interface Player {
     int getIdentifier();
 
+    String getSoundName();
+
     void start();
 
     void setOnCompletionListener(MediaPlayer.OnCompletionListener onCompletionListener);

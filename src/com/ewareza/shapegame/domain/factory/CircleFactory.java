@@ -5,8 +5,10 @@ import android.graphics.Rect;
 import com.ewareza.shapegame.app.Game;
 import com.ewareza.shapegame.app.utils.GameUtils;
 import com.ewareza.shapegame.domain.shape.AbstractShape;
+import com.ewareza.shapegame.resources.ScaledDimenRes;
 
-//@TODO inner class or separate class??
+import static android.R.attr.left;
+
 public class CircleFactory extends ShapeFactory {
     private static final CircleFactory INSTANCE = new CircleFactory();
 
@@ -38,9 +40,8 @@ public class CircleFactory extends ShapeFactory {
 
     @Override
     public AbstractShape getLearningPhaseOneShape(ColorFactory.Color color) {
-        int left = GameUtils.LEARNING_SHAPE_LEFT;
-        int top = GameUtils.LEARNING_SHAPE_TOP;
-        return new Circle(new Rect(left, top, left + 5, top + 10), color);
+        SquareFactory.Square square = (SquareFactory.Square) SquareFactory.getInstance().getLearningPhaseOneShape(color);
+        return new Circle(square.asRect(), color);
     }
 
     @Override
@@ -65,7 +66,5 @@ public class CircleFactory extends ShapeFactory {
         public Object clone() throws CloneNotSupportedException {
             return new Circle(getAssociatedRect(), getColor());
         }
-
-
     }
 }

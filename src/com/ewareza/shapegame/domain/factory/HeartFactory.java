@@ -37,9 +37,8 @@ public class HeartFactory extends ShapeFactory {
 
     @Override
     public AbstractShape getLearningPhaseOneShape(ColorFactory.Color color) {
-        int left = GameUtils.LEARNING_SHAPE_LEFT;
-        int top = GameUtils.LEARNING_SHAPE_TOP;
-        return new Heart(new Rect(left, top, left + 5, top + 10), color);
+        SquareFactory.Square square = (SquareFactory.Square) SquareFactory.getInstance().getLearningPhaseOneShape(color);
+        return new Heart(square.asRect(), color);
     }
 
     @Override

@@ -18,11 +18,11 @@ public abstract class SingleGame {
 
     private int numberOfLookedForShapesOnScreen;
 
-    public SingleGame(SingleGameState singleGameState) {
+    SingleGame(SingleGameState singleGameState) {
         this.singleGameState = singleGameState;
     }
 
-    public SingleGameState getSingleGameState() {
+    SingleGameState getSingleGameState() {
         return singleGameState;
     }
 
@@ -64,7 +64,7 @@ public abstract class SingleGame {
         return numberOfLookedForShapesOnScreen;
     }
 
-    protected void setNumberOfLookedForShapesOnScreen(int numberOfLookedForShapesOnScreen) {
+    void setNumberOfLookedForShapesOnScreen(int numberOfLookedForShapesOnScreen) {
         this.numberOfLookedForShapesOnScreen = numberOfLookedForShapesOnScreen;
     }
 
@@ -79,4 +79,6 @@ public abstract class SingleGame {
             shape.draw(canvas);
         }
     }
+
+    public abstract String getCurrentLookedForObjectName();
 }

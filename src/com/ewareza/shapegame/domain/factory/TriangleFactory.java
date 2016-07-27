@@ -37,9 +37,8 @@ public class TriangleFactory extends ShapeFactory {
 
     @Override
     public AbstractShape getLearningPhaseOneShape(ColorFactory.Color color) {
-        int left = GameUtils.LEARNING_SHAPE_LEFT;
-        int top = GameUtils.LEARNING_SHAPE_TOP;
-        return new Triangle(new Rect(left, top, left + 5, top + 10), color);
+        SquareFactory.Square square = (SquareFactory.Square) SquareFactory.getInstance().getLearningPhaseOneShape(color);
+        return new Triangle(square.asRect(), color);
     }
 
     @Override
@@ -48,7 +47,7 @@ public class TriangleFactory extends ShapeFactory {
         return new Triangle(square.getAssociatedRect(), color);
     }
 
-    public static class Triangle extends AbstractShape {
+    private static class Triangle extends AbstractShape {
         private static final String TRIANGLE = "triangle";
 
         private Triangle(Rect rect, ColorFactory.Color color) {

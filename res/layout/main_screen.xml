@@ -1,148 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ewareza.shapegame.app.components.ScaledLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:weightSum="1"
-              android:background="@drawable/main_screen_background"
+              android:background="@drawable/main_background_screen"
               android:id="@+id/main_screen"
               android:orientation="vertical"
               tools:context="com.ewareza.com.ewareza.shapegame.app.main.MainScreenActivity">
 
-    <LinearLayout
+    <com.ewareza.shapegame.app.components.ScaledLinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.65"
             android:layout_gravity="top|right"
             android:layout_marginTop="@dimen/main_sounds_buttons_margin_top"
-            android:layout_marginRight="@dimen/main_sounds_buttons_margin_right">
+            android:layout_marginRight="@dimen/main_sounds_buttons_margin_right"
+            >
 
-        <ImageButton
-                android:layout_width="@dimen/main_sounds_button_width"
-                android:layout_height="@dimen/main_sounds_button_height"
+        <com.ewareza.shapegame.app.components.ScaledImageButton
+                android:layout_width="@dimen/main_sounds_button_size"
+                android:layout_height="@dimen/main_sounds_button_size"
                 android:id="@+id/sounds_on_off"
                 android:src="@drawable/sounds_on"
                 android:adjustViewBounds="false"
                 android:background="@drawable/round_button"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:padding="@dimen/main_sounds_button_padding"/>
 
-        <ImageButton
-                android:layout_width="@dimen/main_speaking_button_width"
-                android:layout_height="@dimen/main_speaking_button_height"
+        <com.ewareza.shapegame.app.components.ScaledImageButton
+                android:layout_width="@dimen/main_sounds_button_size"
+                android:layout_height="@dimen/main_sounds_button_size"
                 android:id="@+id/speaking_on_off"
                 android:src="@drawable/speaking_on"
-                android:adjustViewBounds="true"
+                android:adjustViewBounds="false"
                 android:background="@drawable/round_button"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:padding="@dimen/main_sounds_button_padding"
                 android:layout_marginLeft="@dimen/main_speaking_button_margin_left"/>
-    </LinearLayout>
+    </com.ewareza.shapegame.app.components.ScaledLinearLayout>
 
-    <LinearLayout
+    <com.ewareza.shapegame.app.components.ScaledLinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|center"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="30dp">
+            >
 
-        <LinearLayout
+        <com.ewareza.shapegame.app.components.ScaledFrameLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="40dp"
+                android:id="@+id/main_screen_learning_button_with_text">
 
-            <ImageButton
+            <com.ewareza.shapegame.app.components.ScaledImageButton
                     android:layout_width="@dimen/main_start_game_button_width"
                     android:layout_height="@dimen/main_start_game_button_height"
                     android:id="@+id/newLearningGameButton"
-                    android:src="@drawable/learning_button_image"
-                    android:background="@drawable/new_game_border"
-                    android:layout_marginRight="5dp"
-                    android:scaleType="fitXY"
-                    android:padding="5dp"/>
+                    android:src="@drawable/main_menu_learning_button"
+                    android:scaleType="centerCrop"
+                    android:padding="25dp"
+                    android:background="@drawable/cloud"
+                    />
 
-            <TextView
+            <com.ewareza.shapegame.app.components.ScaledTextView
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:text="nauka"
-                    android:id="@+id/textView"
-                    android:layout_gravity="top|center_horizontal"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textStyle="bold"
-                    android:typeface="monospace"
-                    android:textColor="#000000"/>
-        </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:text="@string/learning"
+                    android:id="@+id/startLearningGameText"
+                    android:typeface="sans"
+                    android:textColor="#ffffff"
+                    />
+        </com.ewareza.shapegame.app.components.ScaledFrameLayout>
 
-        <LinearLayout
+        <com.ewareza.shapegame.app.components.ScaledLinearLayout
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:weightSum="1"
-                android:showDividers="middle|beginning|end|none"
-                android:layout_gravity="left">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp">
 
-            <ImageButton
-                    android:layout_width="@dimen/main_start_game_button_width"
-                    android:layout_height="@dimen/main_start_game_button_height"
-                    android:id="@+id/newShapesGameButton"
-                    android:src="@drawable/shape_game_button_image"
-                    android:clickable="true"
-                    android:layout_marginRight="5dp"
-                    android:background="@drawable/new_game_border"
-                    android:layout_marginLeft="5dp"
-                    android:scaleType="fitXY"
-                    android:padding="5dp"/>
-
-            <TextView
+            <com.ewareza.shapegame.app.components.ScaledFrameLayout
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:text="kształty"
-                    android:id="@+id/shapesGameText"
-                    android:textColor="#000000"
-                    android:layout_gravity="center_horizontal"
-                    android:typeface="monospace"
-                    android:textStyle="bold"
-                    android:singleLine="false"
-                    android:textAppearance="@android:style/TextAppearance.Large"
-                    android:password="false"/>
-        </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:weightSum="1"
+                    android:showDividers="middle|beginning|end|none"
+                    >
 
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="right"
-                android:layout_weight="0.65">
+                <com.ewareza.shapegame.app.components.ScaledTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/shape_game"
+                        android:id="@+id/startShapeGameText"
+                        android:textColor="#ffffff"
+                        android:typeface="normal"
+                        android:singleLine="false"
+                        />
 
-            <ImageButton
-                    android:layout_width="@dimen/main_start_game_button_width"
-                    android:layout_height="@dimen/main_start_game_button_height"
-                    android:id="@+id/newColorGameButton"
-                    android:layout_weight="2.06"
-                    android:src="@drawable/color_game_button_imgage"
-                    android:background="@drawable/new_game_border"
-                    android:visibility="visible"
-                    android:layout_gravity="right"
-                    android:layout_marginLeft="5dp"
-                    android:scaleType="fitXY"
-                    android:padding="5dp"/>
+                <com.ewareza.shapegame.app.components.ScaledImageButton
+                        android:layout_width="@dimen/main_start_game_button_width"
+                        android:layout_height="@dimen/main_start_game_button_height"
+                        android:id="@+id/newShapesGameButton"
+                        android:src="@drawable/shape_game_button_image"
+                        android:clickable="true"
+                        android:scaleType="centerCrop"
+                        android:padding="25dp"
+                        android:adjustViewBounds="false"
+                        android:background="@drawable/cloud"/>
 
-            <TextView
+            </com.ewareza.shapegame.app.components.ScaledFrameLayout>
+
+            <com.ewareza.shapegame.app.components.ScaledFrameLayout
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="kolory"
-                    android:id="@+id/colorsGameText"
-                    android:layout_gravity="center_horizontal"
-                    android:visibility="visible"
-                    android:textColor="#000000"
-                    android:typeface="monospace"
-                    android:textStyle="bold"
-                    android:textIsSelectable="false"/>
-        </LinearLayout>
-    </LinearLayout>
+                    android:layout_height="wrap_content"
+                    >
 
-</LinearLayout>
+                <com.ewareza.shapegame.app.components.ScaledTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/color_game"
+                        android:id="@+id/startColourGameText"
+                        android:visibility="visible"
+                        android:textColor="#ffffff"
+                        android:typeface="normal"
+                        android:textIsSelectable="false"
+                        android:layout_marginRight="5dp"
+                        />
+
+                <com.ewareza.shapegame.app.components.ScaledImageButton
+                        android:layout_width="@dimen/main_start_game_button_width"
+                        android:layout_height="@dimen/main_start_game_button_height"
+                        android:id="@+id/newColorGameButton"
+                        android:layout_weight="2.06"
+                        android:src="@drawable/color_game_button_image"
+                        android:background="@drawable/cloud"
+                        android:visibility="visible"
+                        android:layout_gravity="right"
+                        android:scaleType="fitXY"
+                        android:padding="35dp"
+                        />
+            </com.ewareza.shapegame.app.components.ScaledFrameLayout>
+        </com.ewareza.shapegame.app.components.ScaledLinearLayout>
+
+    </com.ewareza.shapegame.app.components.ScaledLinearLayout>
+
+</com.ewareza.shapegame.app.components.ScaledLinearLayout>

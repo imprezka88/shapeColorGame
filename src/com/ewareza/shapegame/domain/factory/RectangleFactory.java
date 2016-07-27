@@ -6,7 +6,7 @@ import com.ewareza.shapegame.app.Game;
 import com.ewareza.shapegame.app.shapeColorGame.singleGame.SingleShapeGame;
 import com.ewareza.shapegame.app.utils.GameUtils;
 import com.ewareza.shapegame.domain.shape.AbstractShape;
-import com.ewareza.shapegame.resources.DimenRes;
+import com.ewareza.shapegame.resources.ScaledDimenRes;
 
 public class RectangleFactory extends ShapeFactory {
     private static final RectangleFactory INSTANCE = new RectangleFactory();
@@ -45,8 +45,8 @@ public class RectangleFactory extends ShapeFactory {
 
     @Override
     public AbstractShape getGameTitleShape() {
-        int gameTitleHeight = DimenRes.getGameTitleHeight();
-        int screenWidth = DimenRes.getScreenWidth();
+        int gameTitleHeight = ScaledDimenRes.getGameTitleHeightInPx();
+        int screenWidth = ScaledDimenRes.getScreenWidthInPx();
 
         int left = screenWidth / 2 - gameTitleHeight;
         int right = screenWidth / 2 + gameTitleHeight;
@@ -57,8 +57,12 @@ public class RectangleFactory extends ShapeFactory {
 
     @Override
     public AbstractShape getLearningPhaseOneShape(ColorFactory.Color color) {
-        return new Rectangle(new Rect(GameUtils.LEARNING_SHAPE_LEFT, GameUtils.LEARNING_SHAPE_TOP,
-                GameUtils.LEARNING_SHAPE_LEFT + 200, GameUtils.LEARNING_SHAPE_TOP), color);
+        int left = GameUtils.LEARNING_SHAPE_LEFT - 40;
+        int top = GameUtils.LEARNING_SHAPE_TOP;
+        int right = left + 80;
+        int bottom = GameUtils.LEARNING_SHAPE_TOP + 1;
+
+        return new Rectangle(new Rect(left, top, right, bottom), color);
     }
 
     @Override
@@ -66,10 +70,10 @@ public class RectangleFactory extends ShapeFactory {
         return new Rectangle(new Rect(leftTop.x, leftTop.y, leftTop.x + ShapeFactory.getLearningShapeMaxWidth(), leftTop.y + ShapeFactory.getLearningShapeMaxHeight()), color);
     }
 
-    public static class Rectangle extends AbstractShape {
+    static class Rectangle extends AbstractShape {
         private static final String RECTANGLE = "rectangle";
 
-        protected Rectangle(Rect rect, ColorFactory.Color color) {
+        Rectangle(Rect rect, ColorFactory.Color color) {
             super(rect, color, Game.getDrawer(), Game.getMover());
         }
 
@@ -83,7 +87,7 @@ public class RectangleFactory extends ShapeFactory {
             return new Rectangle(new Rect(associatedRect), getColor());
         }
 
-        public Rect asRect() {
+        Rect asRect() {
             return associatedRect;
         }
     }

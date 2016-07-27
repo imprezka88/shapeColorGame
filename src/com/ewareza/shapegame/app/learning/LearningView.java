@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-public class LearningView extends SurfaceView implements SurfaceHolder.Callback {
+class LearningView extends SurfaceView implements SurfaceHolder.Callback {
     private LearningDisplayThread learningDisplayThread;
     private SurfaceHolder holder;
 
@@ -21,7 +21,7 @@ public class LearningView extends SurfaceView implements SurfaceHolder.Callback 
         if (!learningDisplayThread.isRunning()) {
             //@TODO check if needed
             learningDisplayThread = new LearningDisplayThread(holder);
-            LearningGame.setFirstPhaseDisplayThread(learningDisplayThread);
+            LearningGame.getInstance().setFirstPhaseDisplayThread(learningDisplayThread);
             learningDisplayThread.setRunning(true);
             //@TODO change to learning sounds, change not to generate titleShape - take class in different way
             learningDisplayThread.start();

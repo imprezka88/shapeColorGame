@@ -29,7 +29,7 @@ public class SingleGameFactory {
 
     private static SingleShapeGame generateSingleShapeGame(SingleGameState singleGameState) {
         SingleShapeGame singleShapeGame = new SingleShapeGame(singleGameState, shapesGenerator.getCurrentLookedForShapeFactory());
-        SoundResourcesManager.playShapeGameTitleSound(singleShapeGame.getCurrentLookedForObject());
+        SoundResourcesManager.playShapeGameTitleSound(singleShapeGame.getCurrentLookedForObjectName());
 
         return singleShapeGame;
     }

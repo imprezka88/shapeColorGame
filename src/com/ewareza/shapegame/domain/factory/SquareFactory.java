@@ -5,7 +5,7 @@ import android.graphics.Rect;
 import com.ewareza.shapegame.app.shapeColorGame.singleGame.SingleShapeGame;
 import com.ewareza.shapegame.app.utils.GameUtils;
 import com.ewareza.shapegame.domain.shape.AbstractShape;
-import com.ewareza.shapegame.resources.DimenRes;
+import com.ewareza.shapegame.resources.ScaledDimenRes;
 
 public class SquareFactory extends ShapeFactory {
     private static final SquareFactory INSTANCE = new SquareFactory();
@@ -38,8 +38,8 @@ public class SquareFactory extends ShapeFactory {
 
     @Override
     public AbstractShape getGameTitleShape() {
-        int gameTitleHeight = DimenRes.getGameTitleHeight();
-        int screenWidth = DimenRes.getScreenWidth();
+        int gameTitleHeight = ScaledDimenRes.getGameTitleHeightInPx();
+        int screenWidth = ScaledDimenRes.getScreenWidthInPx();
 
         int left = screenWidth / 2 - gameTitleHeight / 2;
         int right = screenWidth / 2 + gameTitleHeight / 2;
@@ -50,9 +50,9 @@ public class SquareFactory extends ShapeFactory {
 
     @Override
     public AbstractShape getLearningPhaseOneShape(ColorFactory.Color color) {
-        int top = GameUtils.LEARNING_SHAPE_TOP;
         int left = GameUtils.LEARNING_SHAPE_LEFT;
-        int size = 5;
+        int top = GameUtils.LEARNING_SHAPE_TOP;
+        int size = GameUtils.LEARNING_SHAPE_PHASE_ONE_INITIAL_SIZE;
         return new Square(new Rect(left, top, left + size, top + size), color);
     }
 

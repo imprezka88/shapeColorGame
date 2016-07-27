@@ -1,10 +1,8 @@
 package com.ewareza.shapegame.resources;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
-import android.view.View;
 import android.widget.ImageView;
 import com.ewareza.android.R;
 import com.ewareza.shapegame.app.utils.GameUtils;
@@ -174,7 +172,7 @@ public enum ImageResources implements Resources {
         throw new IllegalArgumentException(String.format("Identifier for drawable: %s not found", fileName));
     }
 
-    public static boolean hasResource(String shapeClassName, ColorFactory.Color color) {
+    public boolean hasResource(String shapeClassName, ColorFactory.Color color) {
         String fileName = String.format("%s_%s", shapeClassName, color.getColorName());
         int identifier = context.getResources().getIdentifier(fileName, GameUtils.RESOURCE_TYPE_DRAWABLE, GameUtils.RESOURCE_PACKAGE);
 
@@ -192,11 +190,11 @@ public enum ImageResources implements Resources {
     @Override
     public void init(Context context) {
         ImageResources.context = context;
-        gameBackground = context.getResources().getDrawable(R.drawable.game_background_clouds);
-        colorGameImageIdentifier = R.drawable.color_game_button_imgage;
+        gameBackground = context.getResources().getDrawable(R.drawable.game_background_screen);
+        colorGameImageIdentifier = R.drawable.color_game_button_image;
 
         shapeGameImageIdentifier = R.drawable.shape_game_button_image;
-        learningImageButtonIdentifier = R.drawable.learning_button_image;
+        learningImageButtonIdentifier = R.drawable.main_menu_learning_button_enabled;
 
         shapeGameImage = context.getResources().getDrawable(shapeGameImageIdentifier);
         colorGameImage = context.getResources().getDrawable(colorGameImageIdentifier);

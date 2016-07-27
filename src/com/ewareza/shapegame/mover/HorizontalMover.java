@@ -3,7 +3,7 @@ package com.ewareza.shapegame.mover;
 import android.graphics.Rect;
 import com.ewareza.shapegame.app.shapeColorGame.ShapeColorGame;
 import com.ewareza.shapegame.domain.shape.AbstractShape;
-import com.ewareza.shapegame.resources.DimenRes;
+import com.ewareza.shapegame.resources.ScaledDimenRes;
 
 import java.util.List;
 
@@ -31,15 +31,15 @@ public class HorizontalMover implements Mover {
     }
 
     private boolean canMoveRight(Rect associatedRect) {
-        return associatedRect.right + ShapeColorGame.getStepForCurrentGame() <= DimenRes.getScreenWidth();
+        return associatedRect.right + ShapeColorGame.getStepForCurrentGame() <= ScaledDimenRes.getScreenWidthInPx();
     }
 
-    public void moveRight(Rect associatedRect) {
+    private void moveRight(Rect associatedRect) {
         associatedRect.right += ShapeColorGame.getStepForCurrentGame();
         associatedRect.left += ShapeColorGame.getStepForCurrentGame();
     }
 
-    public void moveLeft(Rect associatedRect) {
+    private void moveLeft(Rect associatedRect) {
         associatedRect.right -= ShapeColorGame.getStepForCurrentGame();
         associatedRect.left -= ShapeColorGame.getStepForCurrentGame();
     }

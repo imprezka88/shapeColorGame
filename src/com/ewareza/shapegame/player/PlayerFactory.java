@@ -16,23 +16,24 @@ public class PlayerFactory {
         if(identifier == 0)
             throw new IllegalArgumentException(String.format("Could not find sound resource with name: %s", soundName));
 
-        MediaPlayer mediaPlayer = MediaPlayer.create(context, identifier);
+        MediaPlayer mediaPlayer = getMediaPlayer(identifier);
 
         if(soundName.startsWith(PlayerType.SOUND.getPrefix()))
-            return SoundPlayer.createSoundPlayer(mediaPlayer, identifier);
+            return SoundPlayer.createSoundPlayer(mediaPlayer, identifier, soundName);
         if(soundName.startsWith(PlayerType.SPEECH.getPrefix()))
-            return SpeechPlayer.createSpeechPlayer(mediaPlayer, identifier);
+            return SpeechPlayer.createSpeechPlayer(mediaPlayer, identifier, soundName);
 
         throw new UnknownSoundTypeException(String.format("Could not create player for sound name: %s", soundName));
     }
 
-    public class UnknownSoundTypeException extends Exception {
-        public UnknownSoundTypeException(String detailMessage) {
-            super(detailMessage);
-        }
+    private MediaPlayer getMediaPlayer(int identifier) {
+        MediaPlayer mediaPlayer = MediaPlayer.create(context, identifier);
+        return mediaPlayer == null ?  new NullMediaPlayer() : mediaPlayer;
+    }
 
-        public UnknownSoundTypeException(String detailMessage, Throwable throwable) {
-            super(detailMessage, throwable);
+    public class UnknownSoundTypeException extends Exception {
+        UnknownSoundTypeException(String detailMessage) {
+            super(detailMessage);
         }
     }
 }

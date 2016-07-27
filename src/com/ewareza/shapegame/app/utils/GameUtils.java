@@ -6,36 +6,35 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import com.ewareza.shapegame.domain.factory.ColorFactory;
 import com.ewareza.shapegame.domain.shape.AbstractShape;
-import com.ewareza.shapegame.resources.DimenRes;
+import com.ewareza.shapegame.resources.ScaledDimenRes;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GameUtils {
-    public static final int LEARNING_FROG_WIDTH = 300;
-    public static final int LEARNING_FROG_HEIGHT = 300;
+    private static final Logger LOGGER = Logger.getLogger(GameUtils.class.getName());
 
     public static final int LEARNING_SHAPE_TOP = 0;
-    public static final int LEARNING_SHAPE_LEFT = LEARNING_FROG_WIDTH + (DimenRes.getScreenWidth() - LEARNING_FROG_WIDTH) / 2 - 100;
+    public static final int LEARNING_SHAPE_LEFT = ScaledDimenRes.getScreenWidthInPx() / 2 - 1;
 
     public static final String GAME_TYPE = "gameType";
     public static final String SHAPE = "shape";
     public static final String COLOR = "color";
-    public static final int PADDING = 10;
     public static final String RESOURCE_PACKAGE = "com.ewareza.android";
     public static final String RESOURCE_TYPE_DRAWABLE = "drawable";
     public static final String RESOURCE_TYPE_ID = "id";
     public static final String RESOURCE_TYPE_DIMEN = "dimen";
     public static final int LEARNING_SHAPE_ANIMATION_FRAME_DURATION = 200;
-    public static final String PHASE_ONE = "phaseOne";
     private static final Random random = new Random();
     public static final String RESOURCE_TYPE_RAW = "raw";
+    public static final int LEARNING_SHAPE_PHASE_ONE_INITIAL_SIZE = 2;
     private static Paint gameBackgroundPaint = initBackgroundPaint();
 
     private static Paint gameTitleLinePaint = initLinePaint();
-    private static int paddingBetweenShapes;
 
     private GameUtils() {
     }
@@ -54,7 +53,7 @@ public class GameUtils {
                 displayThread.join();
                 retry = false;
             } catch (InterruptedException e) {
-                //@TODO
+                LOGGER.log(Level.WARNING, e.getMessage(), e);
             }
         }
     }
@@ -67,7 +66,7 @@ public class GameUtils {
         return ColorFactory.Color.SHAPE_TITLE;
     }
 
-    public static Paint initLinePaint() {
+    private static Paint initLinePaint() {
         gameTitleLinePaint = new Paint();
         gameTitleLinePaint.setColor(Color.WHITE);
         gameTitleLinePaint.setStrokeWidth(5);

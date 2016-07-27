@@ -5,13 +5,13 @@ import com.ewareza.shapegame.app.GameSettings;
 import com.ewareza.shapegame.app.utils.GameUtils;
 import com.ewareza.shapegame.domain.factory.ShapeFactory;
 import com.ewareza.shapegame.domain.shape.AbstractShape;
-import com.ewareza.shapegame.resources.DimenRes;
+import com.ewareza.shapegame.resources.ScaledDimenRes;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-public enum RandomShapesFactory {
+enum RandomShapesFactory {
     INSTANCE;
 
     private static final Logger logger = Logger.getLogger(RandomShapesFactory.class.getName());
@@ -82,6 +82,6 @@ public enum RandomShapesFactory {
     }
 
     private Rect getAreaToShowShapes() {
-        return new Rect(0, DimenRes.getGameTitleHeight(), DimenRes.getScreenWidth(), DimenRes.getScreenHeight());
+        return new Rect(0, ScaledDimenRes.getGameTitleHeightInPx(), ScaledDimenRes.getScreenWidthInPx(), ScaledDimenRes.getScreenHeightInPx());
     }
 }

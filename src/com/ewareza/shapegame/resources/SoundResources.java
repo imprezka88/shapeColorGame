@@ -3,12 +3,14 @@ package com.ewareza.shapegame.resources;
 import android.content.Context;
 import com.ewareza.android.R;
 import com.ewareza.shapegame.domain.factory.ColorFactory;
-import com.ewareza.shapegame.domain.shape.AbstractShape;
 import com.ewareza.shapegame.player.NullPlayer;
 import com.ewareza.shapegame.player.Player;
 import com.ewareza.shapegame.player.PlayerFactory;
 import com.ewareza.shapegame.player.PlayerType;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 //@TODO cache media players retrieved dynamically, one play method with sound enability check
@@ -34,18 +36,45 @@ public enum SoundResources implements Resources {
     private Player currentLearningShapeDescription;
     private Player currentLearningShapeSelfDescription;
 
+    private Map<String, Player> nameToLearningSound = new HashMap<>();
+    private Map<String, Player> nameToShapeColorGameSound = new HashMap<>();
+
     @Override
     public void init(Context context) {
         this.context = context;
         playerFactory = new PlayerFactory(context);
+
+        mainMenuSound = tryToGetPlayer(R.raw.sound_background_music);
+        mainMenuSound.setLooping(true);
+
         wonGameSound = tryToGetPlayer(R.raw.sound_won_game);
         correctShapeFoundSound = tryToGetPlayer(R.raw.sound_correct_shape_clicked);
         wrongShapeFoundSound = tryToGetPlayer(R.raw.sound_wrong_shape_clicked);
-        mainMenuSound = tryToGetPlayer(R.raw.sound_background_music);
-        mainMenuSound.setLooping(true);
+
         startLearningPhaseOneSound = tryToGetPlayer(R.raw.speech_learning_phase1_sentence1);
         phaseOneSentenceTwo = tryToGetPlayer(R.raw.speech_learning_phase1_sentence2);
         startLearningPhaseTwoSound = tryToGetPlayer(R.raw.speech_learning_phase2);
+
+//        initLearningSoundsList();
+//        initShapeColorGameSoundsList();
+    }
+
+    public Map<String, Player> getNameToLearningSound() {
+        return nameToLearningSound;
+    }
+
+    public Map<String, Player> getNameToShapeColorGameSound() {
+        return nameToShapeColorGameSound;
+    }
+
+    private void initShapeColorGameSoundsList() {
+        nameToShapeColorGameSound.put(wonGameSound.getSoundName(), wonGameSound);
+    }
+
+    private void initLearningSoundsList() {
+        nameToLearningSound.put(startLearningPhaseOneSound.getSoundName(), startLearningPhaseOneSound);
+        nameToLearningSound.put(startLearningPhaseTwoSound.getSoundName(), startLearningPhaseTwoSound);
+        nameToLearningSound.put(phaseOneSentenceTwo.getSoundName(), phaseOneSentenceTwo);
     }
 
     private Player tryToGetPlayer(int id) {
@@ -60,36 +89,25 @@ public enum SoundResources implements Resources {
         return player;
     }
 
-    public Player getCurrentLearningShapeSelfDescription() {
-        return currentLearningShapeSelfDescription;
-    }
-
     public static SoundResources getInstance() {
         return INSTANCE;
     }
 
     public Player getResetStartLearningPhaseOneSound() throws PlayerFactory.UnknownSoundTypeException {
-        startLearningPhaseTwoSound = resetSound(startLearningPhaseOneSound);
+        startLearningPhaseOneSound = resetSound(startLearningPhaseOneSound);
+        nameToLearningSound.put(startLearningPhaseOneSound.getSoundName(), startLearningPhaseOneSound);
         return startLearningPhaseOneSound;
     }
 
     private static Player resetSound(Player player) throws PlayerFactory.UnknownSoundTypeException {
         player.reset();
-//        player.release();
         player = SoundResources.INSTANCE.createPlayerForId(player.getIdentifier());
         return player;
     }
 
-    public Player getStartLearningPhaseTwoSound() {
-        return startLearningPhaseTwoSound;
-    }
-
-    public Player getStartLearningPhaseOneSound() {
-        return startLearningPhaseOneSound;
-    }
-
     public Player getResetStartLearningPhaseTwoSound() throws PlayerFactory.UnknownSoundTypeException {
         startLearningPhaseTwoSound = resetSound(startLearningPhaseTwoSound);
+        nameToLearningSound.put(startLearningPhaseTwoSound.getSoundName(), startLearningPhaseTwoSound);
         return startLearningPhaseTwoSound;
     }
 
@@ -99,10 +117,6 @@ public enum SoundResources implements Resources {
 
     public Player getWonGameSound() {
         return wonGameSound;
-    }
-
-    public Player getCurrentLearningShapeDescription() {
-        return currentLearningShapeDescription;
     }
 
     public Player getCorrectShapeFoundSound() throws PlayerFactory.UnknownSoundTypeException {
@@ -116,6 +130,7 @@ public enum SoundResources implements Resources {
     public Player getLearningShapeDescription(String shapeName) throws PlayerFactory.UnknownSoundTypeException {
         String soundName = String.format("%s_its_%s", PlayerType.SPEECH.getPrefix(), shapeName);
         currentLearningShapeDescription = playerFactory.getPlayer(soundName);
+        nameToLearningSound.put(currentLearningShapeDescription.getSoundName(), currentLearningShapeDescription);
         return currentLearningShapeDescription;
     }
 
@@ -123,21 +138,10 @@ public enum SoundResources implements Resources {
         return mainMenuSound;
     }
 
-    public Player getCurrentShapeGameTitleSound() {
-        return currentShapeGameTitleSound;
-    }
-
-    public Player getCurrentColorGameTitleSound() {
-        return currentColorGameTitleSound;
-    }
-
-    public Player getPhaseOneSentenceTwo() {
-        return phaseOneSentenceTwo;
-    }
-
     public Player getLearningShapeSelfDescription(String shapeName) throws PlayerFactory.UnknownSoundTypeException {
         String soundName = getLearningShapeSelfDescriptionSoundName(shapeName);
         currentLearningShapeSelfDescription = playerFactory.getPlayer(soundName);
+        nameToLearningSound.put(currentLearningShapeSelfDescription.getSoundName(), currentLearningShapeSelfDescription);
         return currentLearningShapeSelfDescription;
     }
 
@@ -152,6 +156,7 @@ public enum SoundResources implements Resources {
     public Player getShapeGameTitleSound(String lookedForShapeName) throws PlayerFactory.UnknownSoundTypeException {
         String soundName = String.format("%s_find_%s", PlayerType.SPEECH.getPrefix(), lookedForShapeName);
         currentShapeGameTitleSound = playerFactory.getPlayer(soundName);
+        nameToShapeColorGameSound.put(currentShapeGameTitleSound.getSoundName(), currentShapeGameTitleSound);
         return currentShapeGameTitleSound;
 
     }
@@ -159,6 +164,7 @@ public enum SoundResources implements Resources {
     public Player getColorGameTitleSound(ColorFactory.Color color) throws PlayerFactory.UnknownSoundTypeException {
         String soundName = String.format("%s_find_%s", PlayerType.SPEECH.getPrefix(), color.getColorName());
         currentColorGameTitleSound = playerFactory.getPlayer(soundName);
+        nameToShapeColorGameSound.put(currentColorGameTitleSound.getSoundName(), currentColorGameTitleSound);
         return currentColorGameTitleSound;
     }
 
@@ -168,7 +174,6 @@ public enum SoundResources implements Resources {
         }
 
         player.reset();
-        player.release();
         player = SoundResources.INSTANCE.createPlayerForId(player.getIdentifier());
 
         return player;
@@ -180,6 +185,18 @@ public enum SoundResources implements Resources {
 
     public Player getResetPhaseOneSentenceTwo() throws PlayerFactory.UnknownSoundTypeException {
         phaseOneSentenceTwo = resetSound(phaseOneSentenceTwo);
+        nameToLearningSound.put(phaseOneSentenceTwo.getSoundName(), phaseOneSentenceTwo);
         return phaseOneSentenceTwo;
+    }
+
+    public void removeSound(String soundName) {
+        if(nameToLearningSound.containsKey(soundName))
+            nameToLearningSound.remove(soundName);
+        if(nameToShapeColorGameSound.containsKey(soundName))
+            nameToShapeColorGameSound.remove(soundName);
+    }
+
+    public void addShapeColorGameSound(String soundName, Player player) {
+        nameToLearningSound.put(soundName, player);
     }
 }

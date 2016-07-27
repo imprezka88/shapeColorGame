@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
              android:orientation="vertical"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:id="@+id/shape_color_game">
+             android:id="@+id/shape_color_game"
+             tools:context="com.ewareza.shapegame.app.shapeColorGame.ShapeGameActivity">
 
-    <ImageButton
+    <com.ewareza.shapegame.app.components.ScaledImageButton
             android:layout_width="80dp"
             android:layout_height="@dimen/gameTitleHeight"
             android:id="@+id/game_learning_frog"
             android:layout_gravity="left|top"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/talking_frog_animation"/>
+            android:scaleType="fitXY"
+            android:background="@drawable/shape_game_learning_button"/>
 
-    <ImageButton
+    <com.ewareza.shapegame.app.components.ScaledImageButton
             android:layout_width="120dp"
             android:layout_height="@dimen/gameTitleHeight"
             android:id="@+id/game_next_game"

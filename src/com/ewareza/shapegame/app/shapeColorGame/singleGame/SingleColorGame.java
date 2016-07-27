@@ -47,4 +47,9 @@ public class SingleColorGame extends SingleGame {
 
         return new Splash(square.getAssociatedRect(), currentLookedForColor, Game.getDrawer());
     }
+
+    @Override
+    public String getCurrentLookedForObjectName() {
+        return currentLookedForColor.getColorName();
+    }
 }

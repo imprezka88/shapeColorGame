@@ -4,11 +4,11 @@ import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import com.ewareza.shapegame.app.learning.LearningGame;
 import com.ewareza.shapegame.domain.factory.ColorFactory;
-import com.ewareza.shapegame.domain.shape.AbstractShape;
 import com.ewareza.shapegame.domain.shape.Shape;
 import com.ewareza.shapegame.resources.ImageResources;
 import com.ewareza.shapegame.resources.SoundResources;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SoundResourcesManager {
@@ -17,60 +17,45 @@ public class SoundResourcesManager {
     private static boolean stopPlayingLearningSounds = false;
 
     public static void playLearningShapePhaseOneDescriptionSound(String shapeName) {
-        if (!stopPlayingLearningSounds) {
-            try {
-                Player learningShapeDescription = SoundResources.INSTANCE.getLearningShapeDescription(shapeName);
-                learningShapeDescription.start();
-                ImageResources.getInstance().getTalkingFrogAnimation().start();
+        try {
+            Player learningShapeDescription = SoundResources.INSTANCE.getLearningShapeDescription(shapeName);
+            learningShapeDescription.start();
+            animateTalkingFrogIfPossible(learningShapeDescription);
 
-                learningShapeDescription.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        try {
-                            learningShapeDescription.release();
-                            ImageResources.getInstance().getTalkingFrogAnimation().stop();
-                            Thread.sleep(2000);
-                            LearningGame.learnNextShape();
-                        } catch (InterruptedException e) {
-                            //@TODO
-                        }
+            learningShapeDescription.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    try {
+                        Thread.sleep(2000);
+                        if (!stopPlayingLearningSounds)
+                            LearningGame.getInstance().learnNextShape();
+                    } catch (InterruptedException e) {
+                        //@TODO
                     }
-                });
-            }
-            catch (Exception e) {
-                Log.warning(String.format("Could not play learning shape description voice in phase one: %s", e.getMessage()));
-            }
+                }
+            });
+        }
+        catch (Exception e) {
+            Log.warning(String.format("Could not play learning shape description voice in phase one for shape: %s. : %s", shapeName, e.getMessage()));
         }
     }
 
-    public static void playLearningShapePhaseTwoSound(String shapeName, Class<? extends Shape> shapeClass) {
-        Player learningShapeSelfDescription = null;
+    public static void playLearningShapeSelfDescription(String shapeName, Class<? extends Shape> shapeClass) {
         try {
-            learningShapeSelfDescription = SoundResources.INSTANCE.getLearningShapeSelfDescription(shapeName);
+            Player learningShapeSelfDescription = SoundResources.INSTANCE.getLearningShapeSelfDescription(shapeName);
             AnimationDrawable talkingShapeAnimation = ImageResources.getInstance().getTalkingShapeAnimation(shapeClass);
-            learningShapeSelfDescription.start();
+            PlayerWithAnimation playerWithAnimation = new PlayerWithAnimation(learningShapeSelfDescription, talkingShapeAnimation);
 
-            if (talkingShapeAnimation != null) {
-                talkingShapeAnimation.start();
-
-                final Player finalLearningShapeSelfDescription = learningShapeSelfDescription;
-                learningShapeSelfDescription.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        finalLearningShapeSelfDescription.release();
-                        talkingShapeAnimation.stop();
-                    }
-                });
-            }
+            playerWithAnimation.start();
         } catch (PlayerFactory.UnknownSoundTypeException e) {
-            e.printStackTrace();
+            Log.warning(String.format("Could not play learning shape self description voice in phase one for shape: %s. : %s", shapeName, e.getMessage()));
         }
-
     }
 
     private static void stopPlayingSoundIfPlaying(Player player) {
         if (player != null && player.isPlaying()) {
             player.stop();
+            player.release();
         }
     }
 
@@ -79,9 +64,10 @@ public class SoundResourcesManager {
             SoundResources.getInstance().resetMainMenuSound();
             Player mainMenuSound = SoundResources.INSTANCE.getMainMenuSound();
             mainMenuSound.setVolume((float) 0.5, (float) 0.5);
+            mainMenuSound.setLooping(true);
             mainMenuSound.start();
         } catch (PlayerFactory.UnknownSoundTypeException e) {
-
+            Log.log(Level.WARNING, e.getMessage(), e);
         }
     }
 
@@ -96,71 +82,56 @@ public class SoundResourcesManager {
 
     public static void playStartLearningPhaseOneSound() {
         stopPlayingLearningSounds = false;
-        Player startLearningPhaseOneSound = null;
         try {
-            startLearningPhaseOneSound = SoundResources.INSTANCE.getResetStartLearningPhaseOneSound();
+            Player startLearningPhaseOneSound = SoundResources.INSTANCE.getResetStartLearningPhaseOneSound();
             startLearningPhaseOneSound.start();
-            ImageResources.getInstance().getTalkingFrogAnimation().start();
+            animateTalkingFrogIfPossible(startLearningPhaseOneSound);
 
-            final Player finalStartLearningPhaseOneSound = startLearningPhaseOneSound;
             startLearningPhaseOneSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
-                    finalStartLearningPhaseOneSound.release();
-                    ImageResources.getInstance().getTalkingFrogAnimation().stop();
                     playPhaseOneSentenceTwo();
                 }
             });
         } catch (PlayerFactory.UnknownSoundTypeException e) {
+            Log.warning(String.format("Could not play learning phase one start voice in phase one: %s", e.getMessage()));
+
         }
     }
 
     private static void playPhaseOneSentenceTwo() {
         stopPlayingLearningSounds = false;
-        Player phaseOneSentenceTwo = null;
         try {
-            phaseOneSentenceTwo = SoundResources.INSTANCE.getResetPhaseOneSentenceTwo();
+            Player phaseOneSentenceTwo = SoundResources.INSTANCE.getResetPhaseOneSentenceTwo();
             phaseOneSentenceTwo.start();
-            ImageResources.getInstance().getTalkingFrogAnimation().start();
+            animateTalkingFrogIfPossible(phaseOneSentenceTwo);
 
-            final Player finalPhaseOneSentenceTwo = phaseOneSentenceTwo;
             phaseOneSentenceTwo.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
-                    finalPhaseOneSentenceTwo.release();
-                    ImageResources.getInstance().getTalkingFrogAnimation().stop();
-                    LearningGame.startPresentingShapes();
+                    LearningGame.getInstance().startPresentingShapes();
                 }
             });
         } catch (PlayerFactory.UnknownSoundTypeException e) {
+            Log.warning(String.format("Could not play learning phase one sentence two voice in phase one for shape: %s", e.getMessage()));
         }
     }
 
     public static void playStartLearningPhaseTwoSound() {
         try {
             Player startLearningPhaseTwoSound = SoundResources.INSTANCE.getResetStartLearningPhaseTwoSound();
-
             startLearningPhaseTwoSound.start();
-            ImageResources.getInstance().getTalkingFrogAnimation().start();
-
-            startLearningPhaseTwoSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    startLearningPhaseTwoSound.release();
-                    ImageResources.getInstance().getTalkingFrogAnimation().stop();
-                }
-            });
+            animateTalkingFrogIfPossible(startLearningPhaseTwoSound);
         } catch (PlayerFactory.UnknownSoundTypeException e) {
+            Log.warning(String.format("Could not play learning phase two voice in phase one: %s", e.getMessage()));
         }
     }
 
     public static void stopPlayingAllLearningSounds() {
         stopPlayingLearningSounds = true;
-        stopPlayingSoundIfPlaying(SoundResources.INSTANCE.getStartLearningPhaseOneSound());
-        stopPlayingSoundIfPlaying(SoundResources.INSTANCE.getPhaseOneSentenceTwo());
-        stopPlayingSoundIfPlaying(SoundResources.INSTANCE.getStartLearningPhaseTwoSound());
-        stopPlayingSoundIfPlaying(SoundResources.INSTANCE.getCurrentLearningShapeDescription());
-        stopPlayingSoundIfPlaying(SoundResources.INSTANCE.getCurrentLearningShapeSelfDescription());
+        for (Player player : SoundResources.getInstance().getNameToLearningSound().values()) {
+            stopPlayingSoundIfPlaying(player);
+        }
     }
 
     public static void resumeMainMenuSound() {
@@ -176,76 +147,75 @@ public class SoundResourcesManager {
     }
 
     public static void stopPlayingShapeGameSounds() {
-        stopPlayingSoundIfPlaying(SoundResources.INSTANCE.getCurrentColorGameTitleSound());
-        stopPlayingSoundIfPlaying(SoundResources.INSTANCE.getCurrentShapeGameTitleSound());
-        stopPlayingSoundIfPlaying(SoundResources.INSTANCE.getWonGameSound());
+        for (Player player : SoundResources.getInstance().getNameToShapeColorGameSound().values()) {
+            stopPlayingSoundIfPlaying(player);
+        }
     }
 
     public static void playWonGame() {
-        SoundResources.INSTANCE.getWonGameSound().start();
+        Player wonGameSound = SoundResources.INSTANCE.getWonGameSound();
+        wonGameSound.start();
+        addShapeColorGameSound(wonGameSound);
+    }
+
+    private static void addShapeColorGameSound(Player player) {
+        SoundResources.getInstance().addShapeColorGameSound(player.getSoundName(), player);
     }
 
     public static void playCorrectShapeClickedSound() {
-        Player correctShapeFoundSound;
         try {
-            correctShapeFoundSound = SoundResources.INSTANCE.getCorrectShapeFoundSound();
+            Player correctShapeFoundSound = SoundResources.INSTANCE.getCorrectShapeFoundSound();
             correctShapeFoundSound.start();
+            addShapeColorGameSound(correctShapeFoundSound);
         } catch (PlayerFactory.UnknownSoundTypeException e) {
-            e.printStackTrace();
+            Log.warning(String.format("Could not play correct shape clicked sound: %s", e.getMessage()));
         }
     }
 
     public static void playWrongShapeClickedSound() {
-        Player wrongShapeFoundSound = null;
         try {
-            wrongShapeFoundSound = SoundResources.INSTANCE.getWrongShapeFoundSound();
+            Player wrongShapeFoundSound = SoundResources.INSTANCE.getWrongShapeFoundSound();
             wrongShapeFoundSound.start();
+            addShapeColorGameSound(wrongShapeFoundSound);
         } catch (PlayerFactory.UnknownSoundTypeException e) {
-
-
+            Log.warning(String.format("Could not play wrong shape clicked sound: %s", e.getMessage()));
         }
     }
 
     //@TODO cache sounds
-    public static void playShapeGameTitleSound(AbstractShape currentLookedForShape) {
-        Player shapeGameTitleSound = null;
+    public static void playShapeGameTitleSound(String currentLookedForShapeName) {
         try {
-            shapeGameTitleSound = SoundResources.INSTANCE.getShapeGameTitleSound(currentLookedForShape.getName());
+            Player shapeGameTitleSound = SoundResources.INSTANCE.getShapeGameTitleSound(currentLookedForShapeName);
             shapeGameTitleSound.start();
-            final AnimationDrawable talkingFrogAnimation = ImageResources.getInstance().getTalkingFrogAnimation();
-
-            if (talkingFrogAnimation != null) {
-                talkingFrogAnimation.start();
-
-                shapeGameTitleSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        talkingFrogAnimation.stop();
-                    }
-                });
-            }
+            animateTalkingFrogIfPossible(shapeGameTitleSound);
         } catch (PlayerFactory.UnknownSoundTypeException e) {
-
+            Log.warning(String.format("Could not play shape game title for shape: %s. %s", currentLookedForShapeName, e.getMessage()));
         }
-
-
     }
 
     public static void playColorGameTitleSound(ColorFactory.Color color) {
-        Player colorGameTitleSound = null;
         try {
-            colorGameTitleSound = SoundResources.INSTANCE.getColorGameTitleSound(color);
+            Player colorGameTitleSound = SoundResources.INSTANCE.getColorGameTitleSound(color);
             colorGameTitleSound.start();
-            ImageResources.getInstance().getTalkingFrogAnimation().start();
+            animateTalkingFrogIfPossible(colorGameTitleSound);
+        } catch (PlayerFactory.UnknownSoundTypeException e) {
+            Log.warning(String.format("Could not play color game title for color: %s. %s", color.getColorName(), e.getMessage()));
+        }
+    }
 
-            colorGameTitleSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+    private static void animateTalkingFrogIfPossible(Player player) {
+        final AnimationDrawable talkingFrogAnimation = ImageResources.getInstance().getTalkingFrogAnimation();
+        if(talkingFrogAnimation != null) {
+            talkingFrogAnimation.start();
+
+            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
-                    ImageResources.getInstance().getTalkingFrogAnimation().stop();
+                    talkingFrogAnimation.stop();
+                    SoundResources.getInstance().removeSound(player.getSoundName());
+                    mp.release();
                 }
             });
-        } catch (PlayerFactory.UnknownSoundTypeException e) {
         }
-
     }
 }

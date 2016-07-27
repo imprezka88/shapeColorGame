@@ -38,4 +38,9 @@ public class SingleShapeGame extends SingleGame {
     public Shape getGameTitleShape() {
         return currentLookedForShapeFactory.getGameTitleShape();
     }
+
+    @Override
+    public String getCurrentLookedForObjectName() {
+        return currentLookedForShapeFactory.getShapeName();
+    }
 }

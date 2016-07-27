@@ -13,13 +13,15 @@ import com.ewareza.android.R;
 import com.ewareza.shapegame.app.CountingActivity;
 import com.ewareza.shapegame.app.Game;
 import com.ewareza.shapegame.app.GameEngine;
+import com.ewareza.shapegame.app.PersistentGameSettings;
 import com.ewareza.shapegame.app.learning.LearningGameActivity;
 import com.ewareza.shapegame.app.utils.GameUtils;
 import com.ewareza.shapegame.player.SoundResourcesManager;
-import com.ewareza.shapegame.resources.DimenRes;
+import com.ewareza.shapegame.resources.ScaledDimenRes;
 import com.ewareza.shapegame.resources.ImageResources;
 
 import java.util.concurrent.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ShapeGameActivity extends CountingActivity {
@@ -45,10 +47,10 @@ public class ShapeGameActivity extends CountingActivity {
         gameEngine = ShapeColorGame.getEngine();
 
         setContentView(R.layout.shape_color_game_screen);
-        initButtons();
+        initView();
     }
 
-    private void initButtons() {
+    private void initView() {
         initGameView();
         initLearningButton();
         initNextGameImageButton();
@@ -56,16 +58,16 @@ public class ShapeGameActivity extends CountingActivity {
 
     private FrameLayout initGameView() {
         FrameLayout shapeGameLayout = (FrameLayout) findViewById(R.id.shape_color_game);
-        gameView = new GameView(this, gameStartCountDownLatch);
+        gameView = new GameView(this.getApplicationContext(), gameStartCountDownLatch);
         shapeGameLayout.addView(gameView, 0);
 
         return shapeGameLayout;
     }
 
     private ImageView initLearningButton() {
-        ImageButton frogView = (ImageButton) findViewById(R.id.game_learning_frog);
+        ImageButton learningButton = (ImageButton) findViewById(R.id.game_learning_frog);
 
-        frogView.setOnClickListener(new View.OnClickListener() {
+        learningButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ShapeGameActivity.this, LearningGameActivity.class);
@@ -74,10 +76,18 @@ public class ShapeGameActivity extends CountingActivity {
             }
         });
 
-        AnimationDrawable frogAnimation = (AnimationDrawable) frogView.getBackground(); //AnimationUtils.loadAnimation(this, R.drawable.talking_frog_animation);
-        ImageResources.getInstance().setTalkingFrogAnimation(frogAnimation);
+        if(PersistentGameSettings.getSpeechEnabled()) {
+            learningButton.setEnabled(true);
+            learningButton.setClickable(true);
+            AnimationDrawable frogAnimation = (AnimationDrawable) learningButton.getBackground().getCurrent();
+            ImageResources.getInstance().setTalkingFrogAnimation(frogAnimation);
+        }
+        else {
+            learningButton.setEnabled(false);
+            learningButton.setClickable(false);
+        }
 
-        return frogView;
+        return learningButton;
     }
 
     private ImageButton initNextGameImageButton() {
@@ -104,7 +114,7 @@ public class ShapeGameActivity extends CountingActivity {
             int x = (int) event.getX();
             int y = (int) event.getY();
 
-            if (x < DimenRes.getScreenWidth() && y < DimenRes.getScreenHeight()) {
+            if (x < ScaledDimenRes.getScreenWidthInPx() && y < ScaledDimenRes.getScreenHeightInPx()) {
                 gameEngine.onScreenTouched(new Point(x, y));
 
                 if (allShapesFound()) {
@@ -127,12 +137,8 @@ public class ShapeGameActivity extends CountingActivity {
     private void tryToAwaitWithTimeoutOnBarrier(CyclicBarrier cyclicBarrier, int timeout, TimeUnit timeUnit) {
         try {
             cyclicBarrier.await(timeout, timeUnit);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (BrokenBarrierException e) {
-            //@TODO
-        } catch (TimeoutException e) {
-            //@TODO
+        } catch (InterruptedException | BrokenBarrierException | TimeoutException e) {
+            Log.log(Level.WARNING, e.getMessage(), e);
         }
         finally {
             gameOverCyclicBarrier.reset();

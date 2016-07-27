@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Kształty i kolory</string>
+    <string name="rectangle">kwadrat</string>
+    <string name="circle">kółko</string>
+    <string name="triangle">trójkąt</string>
+
+    <string name="learning">nauka</string>
+    <string name="shape_game">kształty</string>
+    <string name="color_game">kolory</string>
+
+</resources>

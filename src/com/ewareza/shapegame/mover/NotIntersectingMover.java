@@ -3,7 +3,7 @@ package com.ewareza.shapegame.mover;
 import android.graphics.Rect;
 import com.ewareza.shapegame.app.shapeColorGame.ShapeColorGame;
 import com.ewareza.shapegame.domain.shape.AbstractShape;
-import com.ewareza.shapegame.resources.DimenRes;
+import com.ewareza.shapegame.resources.ScaledDimenRes;
 
 import java.util.List;
 
@@ -46,8 +46,7 @@ public class NotIntersectingMover implements Mover {
             }
         }
 
-        boolean result = (shapeToTest.getAssociatedRect().left - ShapeColorGame.getStepForCurrentGame()) >= 0;
-        return result;
+        return (shapeToTest.getAssociatedRect().left - ShapeColorGame.getStepForCurrentGame()) >= 0;
     }
 
     private boolean canMoveRight(List<AbstractShape> shapes, AbstractShape shapeToTest) {
@@ -67,16 +66,15 @@ public class NotIntersectingMover implements Mover {
             }
         }
 
-        boolean result = (shapeToTest.getAssociatedRect().right + ShapeColorGame.getStepForCurrentGame()) <= DimenRes.getScreenWidth();
-        return result;
+        return (shapeToTest.getAssociatedRect().right + ShapeColorGame.getStepForCurrentGame()) <= ScaledDimenRes.getScreenWidthInPx();
     }
 
-    public void moveRight(Rect associatedRect) {
+    private void moveRight(Rect associatedRect) {
         associatedRect.right += ShapeColorGame.getStepForCurrentGame();
         associatedRect.left += ShapeColorGame.getStepForCurrentGame();
     }
 
-    public void moveLeft(Rect associatedRect) {
+    private void moveLeft(Rect associatedRect) {
         associatedRect.right -= ShapeColorGame.getStepForCurrentGame();
         associatedRect.left -= ShapeColorGame.getStepForCurrentGame();
     }

@@ -4,10 +4,14 @@ import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class DisplayThread extends Thread {
-    protected final SurfaceHolder surfaceHolder;
+    private static final Logger log = Logger.getLogger(DisplayThread.class.getName());
+    private final SurfaceHolder surfaceHolder;
     private AtomicBoolean running = new AtomicBoolean(false);
+    private AtomicBoolean finish = new AtomicBoolean(false);
 
     public DisplayThread(SurfaceHolder surfaceHolder) {
         this.surfaceHolder = surfaceHolder;
@@ -20,20 +24,34 @@ public abstract class DisplayThread extends Thread {
 
             Canvas canvas = null;
             try {
-                canvas = surfaceHolder.lockCanvas(null);
+                canvas = surfaceHolder.lockCanvas();
 
                 if (canvas != null) {
                     synchronized (surfaceHolder) {
                         clearScreen(canvas);
-                        drawUpdatedView(canvas);
+
+                        if(!isFinish())
+                            drawUpdatedView(canvas);
+                        else
+                            running.set(false);
                     }
                 }
             } finally {
-                if (canvas != null)
-                    surfaceHolder.unlockCanvasAndPost(canvas);
+                tryToUnlockCanvas(canvas);
             }
 
             tryToSleep();
+        }
+    }
+
+    private void tryToUnlockCanvas(Canvas canvas) {
+        if (canvas != null) {
+            try {
+                surfaceHolder.unlockCanvasAndPost(canvas);
+            }
+            catch (Exception e) {
+                log.log(Level.WARNING, e.getMessage(), e);
+            }
         }
     }
 
@@ -51,5 +69,15 @@ public abstract class DisplayThread extends Thread {
 
     public void setRunning(boolean running) {
         this.running.set(running);
+    }
+
+    public void setFinish(boolean clearFinish) {
+        synchronized (surfaceHolder) {
+            finish.set(clearFinish);
+        }
+    }
+
+    private boolean isFinish() {
+        return finish.get();
     }
 }

@@ -6,6 +6,7 @@ import com.ewareza.shapegame.domain.shape.AbstractShape;
 import com.ewareza.shapegame.resources.ImageResources;
 
 import java.util.Random;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AndroidCanvasDrawer implements Drawer {
@@ -13,9 +14,11 @@ public class AndroidCanvasDrawer implements Drawer {
     private Random random = new Random();
 
     @Override
-    public void draw(Canvas canvas, AbstractShape shape) {
-        String name = shape.getName();
+    public void drawSmall(Canvas canvas, AbstractShape shape) {
+        draw(canvas, shape, shape.getName());
+    }
 
+    private void draw(Canvas canvas, AbstractShape shape, String name) {
         String extraShapeName = String.format("%s_extra", name);
 
         if (shouldDrawExtraShape(shape)) {
@@ -32,6 +35,12 @@ public class AndroidCanvasDrawer implements Drawer {
         } catch (IllegalArgumentException e) {
             LOGGER.warning(String.format("Resource for: %s with color: %s not found", name, shape.getColor()));
         }
+    }
+
+    @Override
+    public void drawBig(Canvas canvas, AbstractShape abstractShape) {
+        String name = String.format("learning_%s", abstractShape.getName());
+        draw(canvas, abstractShape, name);
     }
 
     private boolean shouldDrawExtraShape(AbstractShape shape) {
