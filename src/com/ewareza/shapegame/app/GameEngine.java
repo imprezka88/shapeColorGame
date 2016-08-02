@@ -6,13 +6,13 @@ import com.ewareza.shapegame.app.shapeColorGame.ShapeColorGame;
 import com.ewareza.shapegame.app.shapeColorGame.singleGame.SingleGame;
 import com.ewareza.shapegame.app.shapeColorGame.singleGame.generator.SingleGameFactory;
 import com.ewareza.shapegame.player.SoundResourcesManager;
-import com.ewareza.shapegame.resources.SoundResources;
 
 import java.util.logging.Logger;
 
 public class GameEngine {
+    private static final
+    Logger logger = Logger.getLogger(GameEngine.class.getName());
     private final Object lock = new Object();
-    private Logger logger = Logger.getLogger(GameEngine.class.getName());
     private SingleGame currentSingleGame;
     private String gameType;
 

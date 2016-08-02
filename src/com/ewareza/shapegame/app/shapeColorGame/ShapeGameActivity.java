@@ -121,6 +121,7 @@ public class ShapeGameActivity extends CountingActivity {
                     ShapeColorGame.setGameOver(true);
                     gameEngine.playWonGame();
                     tryToAwaitWithTimeoutOnBarrier(gameOverCyclicBarrier, 3, TimeUnit.SECONDS);
+                    //@TODO move to oncompletion listerer od won game sound
                     gameEngine.generateNewGame();
                     ShapeColorGame.setGameOver(false);
                 }
@@ -148,7 +149,8 @@ public class ShapeGameActivity extends CountingActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        SoundResourcesManager.stopPlayingShapeGameSounds();
+        SoundResourcesManager.stopPlayingSounds();
+        SoundResourcesManager.stopPlayingMainMenuSoundIfPlaying();
         gameView.stopDisplayThread();
     }
 
@@ -161,6 +163,7 @@ public class ShapeGameActivity extends CountingActivity {
     protected void onStart() {
         super.onStart();
         SoundResourcesManager.turnDownMainScreenSound();
+        SoundResourcesManager.resumeMainMenuSound();
         shapeColorGame.setToInitialState();
         startNewGame();
         gameStartCountDownLatch.countDown();

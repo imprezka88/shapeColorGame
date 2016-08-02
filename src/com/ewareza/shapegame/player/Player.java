@@ -7,6 +7,8 @@ public interface Player {
 
     String getSoundName();
 
+    void startAndRelease();
+
     void start();
 
     void setOnCompletionListener(MediaPlayer.OnCompletionListener onCompletionListener);

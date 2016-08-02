@@ -1,10 +1,8 @@
 package com.ewareza.shapegame.app.learning;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -141,7 +139,8 @@ public class LearningGameActivity extends CountingActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        SoundResourcesManager.stopPlayingAllLearningSounds();
+        SoundResourcesManager.stopPlayingSounds();
+        SoundResourcesManager.stopPlayingMainMenuSoundIfPlaying();
     }
 
     @Override
@@ -149,6 +148,7 @@ public class LearningGameActivity extends CountingActivity {
         super.onResume();
         LearningGame.getInstance().setToInitialState();
         SoundResourcesManager.turnDownMainScreenSound();
+        SoundResourcesManager.resumeMainMenuSound();
         SoundResourcesManager.playStartLearningPhaseOneSound();
     }
 }

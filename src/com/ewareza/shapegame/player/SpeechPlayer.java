@@ -8,10 +8,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 class SpeechPlayer implements Player {
+    private Logger logger = Logger.getLogger(SpeechPlayer.class.getName());
     private int identifier;
     private String soundName;
     private MediaPlayer delegate = new MediaPlayer();
-    private Logger logger = Logger.getLogger(SpeechPlayer.class.getName());
 
     private SpeechPlayer(MediaPlayer mediaPlayer, int identifier, String soundName) {
         this.delegate = mediaPlayer;
@@ -33,15 +33,52 @@ class SpeechPlayer implements Player {
     }
 
     @Override
+    public void startAndRelease() {
+        if(PersistentGameSettings.getSpeechEnabled()) {
+            delegate.start();
+            SoundResources.getInstance().addSound(this);
+
+            MediaPlayer.OnCompletionListener removingListener = new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    SoundResources.getInstance().removeSound(SpeechPlayer.this);
+                    SpeechPlayer.this.release();
+                }
+            };
+            this.setOnCompletionListener(removingListener);
+        }
+    }
+
+    @Override
     public void start() {
         if(PersistentGameSettings.getSpeechEnabled()) {
             delegate.start();
+     /*       SoundResources.getInstance().addSound(this);
+
+            MediaPlayer.OnCompletionListener removingListener = new MediaPlayer.OnCompletionListener() {
+
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    SoundResources.getInstance().removeSound(SpeechPlayer.this);
+                }
+            };
+            this.setOnCompletionListener(removingListener);*/
         }
     }
 
     @Override
     public void setOnCompletionListener(MediaPlayer.OnCompletionListener onCompletionListener) {
-        delegate.setOnCompletionListener(onCompletionListener);
+        MediaPlayer.OnCompletionListener removingListener = new MediaPlayer.OnCompletionListener() {
+
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                onCompletionListener.onCompletion(mp);
+                SoundResources.getInstance().removeSound(SpeechPlayer.this);
+                SpeechPlayer.this.release();
+            }
+        };
+
+        delegate.setOnCompletionListener(removingListener);
     }
 
     @Override

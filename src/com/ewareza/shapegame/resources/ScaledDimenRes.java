@@ -91,14 +91,12 @@ public enum ScaledDimenRes implements Resources {
 
     public static int getScaledDimenX(int value) {
         int scaledValue = (int) (((double) value / defaultScreenWidthInPx) * ScaledDimenRes.getScreenWidthInPx());
-        logger.info(String.format("Original value: %d, scaled value: %d", value, scaledValue));
 
         return scaledValue;
     }
 
     public static int getScaledDimenY(int value) {
         int scaledValue = (int) (((double) value / defaultScreenHeightInPx) * ScaledDimenRes.getScreenHeightInPx());
-        logger.info(String.format("Original value: %d, scaled value: %d", value, scaledValue));
 
         return scaledValue;
     }

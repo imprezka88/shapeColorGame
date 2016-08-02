@@ -2,6 +2,7 @@ package com.ewareza.shapegame.player;
 
 import android.media.MediaPlayer;
 import com.ewareza.shapegame.app.PersistentGameSettings;
+import com.ewareza.shapegame.resources.SoundResources;
 
 class SoundPlayer implements Player {
     private final MediaPlayer delegate;
@@ -29,14 +30,51 @@ class SoundPlayer implements Player {
     }
 
     @Override
-    public void start() {
-        if(PersistentGameSettings.getSoundsEnabled())
+    public void startAndRelease() {
+        if(PersistentGameSettings.getSoundsEnabled()) {
             delegate.start();
+            SoundResources.getInstance().addSound(this);
+            MediaPlayer.OnCompletionListener removingListener = new MediaPlayer.OnCompletionListener() {
+
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    SoundResources.getInstance().removeSound(SoundPlayer.this);
+                    SoundPlayer.this.release();
+                }
+            };
+            this.setOnCompletionListener(removingListener);
+        }
+    }
+
+    @Override
+    public void start() {
+        if(PersistentGameSettings.getSoundsEnabled()) {
+            delegate.start();
+            /*SoundResources.getInstance().addSound(this);
+            MediaPlayer.OnCompletionListener removingListener = new MediaPlayer.OnCompletionListener() {
+
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    SoundResources.getInstance().removeSound(SoundPlayer.this);
+                }
+            };
+            this.setOnCompletionListener(removingListener);*/
+        }
     }
 
     @Override
     public void setOnCompletionListener(MediaPlayer.OnCompletionListener onCompletionListener) {
-        delegate.setOnCompletionListener(onCompletionListener);
+        MediaPlayer.OnCompletionListener removingListener = new MediaPlayer.OnCompletionListener() {
+
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                onCompletionListener.onCompletion(mp);
+                SoundResources.getInstance().removeSound(SoundPlayer.this);
+                SoundPlayer.this.release();
+            }
+        };
+
+        delegate.setOnCompletionListener(removingListener);
     }
 
     @Override

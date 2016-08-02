@@ -13,7 +13,7 @@ class PlayerWithAnimation {
     }
 
     void start() {
-        player.start();
+        player.startAndRelease();
 
         if(animationDrawable != null) {
             animationDrawable.start();
@@ -22,7 +22,7 @@ class PlayerWithAnimation {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
                     animationDrawable.stop();
-                    mp.release();
+//                    mp.release();
                 }
             });
         }

@@ -14,7 +14,12 @@ public class NullPlayer implements Player {
     }
 
     @Override
+    public void startAndRelease() {
+    }
+
+    @Override
     public void start() {
+
     }
 
     @Override
