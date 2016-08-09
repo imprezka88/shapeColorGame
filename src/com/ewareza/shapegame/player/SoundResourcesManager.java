@@ -28,19 +28,24 @@ public class SoundResourcesManager {
                 learningShapeDescription.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
-                        try {
-                            Thread.sleep(2000);
-                            if (!stopPlayingLearningSounds.get())
-                                LearningGame.getInstance().learnNextShape();
-                        } catch (InterruptedException e) {
-                            //@TODO
-                        }
+                        tryToLearnNextShape();
                     }
                 });
 
             } catch (Exception e) {
-                Log.warning(String.format("Could not play learning shape description voice in phase one for shape: %s. : %s", shapeName, e.getMessage()));
+                Log.log(Level.WARNING, String.format("Could not play learning shape description voice in phase one for shape: %s. : %s", shapeName, e.getMessage()), e);
+                tryToLearnNextShape();
             }
+        }
+    }
+
+    private static void tryToLearnNextShape() {
+        try {
+            Thread.sleep(2000);
+            if (!stopPlayingLearningSounds.get())
+                LearningGame.getInstance().learnNextShape();
+        } catch (InterruptedException e) {
+            Log.log(Level.WARNING, e.getMessage(), e);
         }
     }
 
@@ -69,7 +74,7 @@ public class SoundResourcesManager {
             mainMenuSound.setVolume((float) 0.5, (float) 0.5);
             mainMenuSound.setLooping(true);
             mainMenuSound.start();
-        } catch (PlayerFactory.UnknownSoundTypeException e) {
+        } catch (Exception e) {
             Log.log(Level.WARNING, e.getMessage(), e);
         }
     }
@@ -97,9 +102,8 @@ public class SoundResourcesManager {
                 }
             });
 
-        } catch (PlayerFactory.UnknownSoundTypeException e) {
+        } catch (Exception e) {
             Log.warning(String.format("Could not play learning phase one start voice in phase one: %s", e.getMessage()));
-
         }
     }
 
@@ -117,7 +121,7 @@ public class SoundResourcesManager {
                     LearningGame.getInstance().startPresentingShapes();
                 }
             });
-        } catch (PlayerFactory.UnknownSoundTypeException e) {
+        } catch (Exception e) {
             Log.warning(String.format("Could not play learning phase one sentence two voice in phase one for shape: %s", e.getMessage()));
         }
     }
@@ -127,7 +131,7 @@ public class SoundResourcesManager {
             Player startLearningPhaseTwoSound = SoundResources.INSTANCE.getResetStartLearningPhaseTwoSound();
             startLearningPhaseTwoSound.startAndRelease();
             animateTalkingFrogIfPossible(startLearningPhaseTwoSound);
-        } catch (PlayerFactory.UnknownSoundTypeException e) {
+        } catch (Exception e) {
             Log.warning(String.format("Could not play learning phase two voice in phase one: %s", e.getMessage()));
         }
     }
@@ -153,7 +157,7 @@ public class SoundResourcesManager {
         try {
             Player correctShapeFoundSound = SoundResources.INSTANCE.getCorrectShapeFoundSound();
             correctShapeFoundSound.startAndRelease();
-        } catch (PlayerFactory.UnknownSoundTypeException e) {
+        } catch (Exception e) {
             Log.warning(String.format("Could not play correct shape clicked sound: %s", e.getMessage()));
         }
     }
@@ -162,7 +166,7 @@ public class SoundResourcesManager {
         try {
             Player wrongShapeFoundSound = SoundResources.INSTANCE.getWrongShapeFoundSound();
             wrongShapeFoundSound.startAndRelease();
-        } catch (PlayerFactory.UnknownSoundTypeException e) {
+        } catch (Exception e) {
             Log.warning(String.format("Could not play wrong shape clicked sound: %s", e.getMessage()));
         }
     }
@@ -173,7 +177,7 @@ public class SoundResourcesManager {
             Player shapeGameTitleSound = SoundResources.INSTANCE.getShapeGameTitleSound(currentLookedForShapeName);
             shapeGameTitleSound.startAndRelease();
             animateTalkingFrogIfPossible(shapeGameTitleSound);
-        } catch (PlayerFactory.UnknownSoundTypeException e) {
+        } catch (Exception e) {
             Log.warning(String.format("Could not play shape game title for shape: %s. %s", currentLookedForShapeName, e.getMessage()));
 
         }
@@ -184,7 +188,7 @@ public class SoundResourcesManager {
             Player colorGameTitleSound = SoundResources.INSTANCE.getColorGameTitleSound(color);
             colorGameTitleSound.startAndRelease();
             animateTalkingFrogIfPossible(colorGameTitleSound);
-        } catch (PlayerFactory.UnknownSoundTypeException e) {
+        } catch (Exception e) {
             Log.warning(String.format("Could not play color game title for color: %s. %s", color.getColorName(), e.getMessage()));
         }
     }

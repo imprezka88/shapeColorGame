@@ -1,4 +1,4 @@
-package com.ewareza.shapegame.app;
+package com.ewareza.shapegame.app.shapeColorGame;
 
 import com.ewareza.shapegame.drawer.AndroidCanvasDrawer;
 import com.ewareza.shapegame.drawer.Drawer;

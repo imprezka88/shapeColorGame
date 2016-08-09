@@ -8,15 +8,16 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import com.ewareza.android.R;
-import com.ewareza.shapegame.app.CountingActivity;
+import com.ewareza.shapegame.app.CountingLocalizedActivity;
+import com.ewareza.shapegame.app.LanguageState;
 import com.ewareza.shapegame.app.PersistentGameSettings;
+import com.ewareza.shapegame.app.ShapeGameApplication;
 import com.ewareza.shapegame.app.learning.LearningGameActivity;
 import com.ewareza.shapegame.app.shapeColorGame.ShapeGameActivity;
 import com.ewareza.shapegame.app.utils.GameUtils;
 import com.ewareza.shapegame.player.SoundResourcesManager;
-import com.ewareza.shapegame.resources.ScaledDimenRes;
 
-public class MainScreenActivity extends CountingActivity {
+public class MainScreenActivity extends CountingLocalizedActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +25,7 @@ public class MainScreenActivity extends CountingActivity {
         setContentView(R.layout.main_screen);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
-        initListenersAndDimensionOfButtons();
+        initListenersOfButtons();
         initTextFont();
     }
 
@@ -39,9 +40,33 @@ public class MainScreenActivity extends CountingActivity {
         colour.setTypeface(font);
     }
 
-    private void initListenersAndDimensionOfButtons() {
+    private void initListenersOfButtons() {
         initNewGameButtons();
         initSoundEnabledButtons();
+        initLanguageChangeButton();
+    }
+
+    private void initLanguageChangeButton() {
+        ImageButton languageChangeButton = (ImageButton) findViewById(R.id.language_change);
+
+        languageChangeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShapeGameApplication application = (ShapeGameApplication) getApplication();
+                LanguageState languageState = application.getLanguageState();
+                languageState.change(application);
+
+                languageChangeButton.setImageDrawable(getResources().getDrawable(R.drawable.language_flag));
+                TextView startShapeGameTextView = (TextView) findViewById(R.id.startShapeGameText);
+                startShapeGameTextView.setText(getResources().getString(R.string.shape_game));
+
+                TextView startColorGameTextView = (TextView) findViewById(R.id.startColourGameText);
+                startColorGameTextView.setText(getResources().getString(R.string.color_game));
+
+                TextView startLearningTextView = (TextView) findViewById(R.id.startLearningGameText);
+                startLearningTextView.setText(getResources().getString(R.string.learning));
+            }
+        });
     }
 
     private void initSoundEnabledButtons() {
@@ -99,10 +124,10 @@ public class MainScreenActivity extends CountingActivity {
         final ImageButton speakingOnOffButton = (ImageButton) findViewById(R.id.speaking_on_off);
 
         if (PersistentGameSettings.getSpeechEnabled()) {
-            speakingOnOffButton.setImageResource(R.drawable.speaking_on);
+            speakingOnOffButton.setBackgroundResource(R.drawable.speaking_on);
             setLearningGameButtonEnabled(true);
         } else {
-            speakingOnOffButton.setImageResource(R.drawable.speaking_off);
+            speakingOnOffButton.setBackgroundResource(R.drawable.speaking_off);
             setLearningGameButtonEnabled(false);
         }
 
@@ -111,11 +136,11 @@ public class MainScreenActivity extends CountingActivity {
             public void onClick(View v) {
                 if (PersistentGameSettings.getSpeechEnabled()) {
                     PersistentGameSettings.setSpeechEnabled(false);
-                    speakingOnOffButton.setImageResource(R.drawable.speaking_off);
+                    speakingOnOffButton.setBackgroundResource(R.drawable.speaking_off);
                     setLearningGameButtonEnabled(false);
                 } else {
                     PersistentGameSettings.setSpeechEnabled(true);
-                    speakingOnOffButton.setImageResource(R.drawable.speaking_on);
+                    speakingOnOffButton.setBackgroundResource(R.drawable.speaking_on);
                     setLearningGameButtonEnabled(true);
                 }
             }
@@ -132,9 +157,9 @@ public class MainScreenActivity extends CountingActivity {
         final ImageButton soundsOnOffButton = (ImageButton) findViewById(R.id.sounds_on_off);
 
         if (PersistentGameSettings.getSoundsEnabled()) {
-            soundsOnOffButton.setImageResource(R.drawable.sounds_on);
+            soundsOnOffButton.setBackgroundResource(R.drawable.sounds_on);
         } else {
-            soundsOnOffButton.setImageResource(R.drawable.sounds_off);
+            soundsOnOffButton.setBackgroundResource(R.drawable.sounds_off);
         }
 
         soundsOnOffButton.setOnClickListener(new View.OnClickListener() {
@@ -143,11 +168,11 @@ public class MainScreenActivity extends CountingActivity {
                 if (PersistentGameSettings.getSoundsEnabled()) {
                     PersistentGameSettings.setSoundsEnabled(false);
                     SoundResourcesManager.pauseMainMenuSoundIfPlaying();
-                    soundsOnOffButton.setImageResource(R.drawable.sounds_off);
+                    soundsOnOffButton.setBackgroundResource(R.drawable.sounds_off);
                 } else {
                     PersistentGameSettings.setSoundsEnabled(true);
                     SoundResourcesManager.resumeMainMenuSound();
-                    soundsOnOffButton.setImageResource(R.drawable.sounds_on);
+                    soundsOnOffButton.setBackgroundResource(R.drawable.sounds_on);
                 }
             }
         });

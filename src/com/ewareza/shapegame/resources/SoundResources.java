@@ -86,8 +86,7 @@ public enum SoundResources implements Resources {
 
     public Player getLearningShapeDescription(String shapeName) throws PlayerFactory.UnknownSoundTypeException {
         String soundName = String.format("%s_its_%s", PlayerType.SPEECH.getPrefix(), shapeName);
-        Player currentLearningShapeDescription = playerFactory.getPlayer(soundName);
-        return currentLearningShapeDescription;
+        return playerFactory.getPlayer(soundName);
     }
 
     public Player getMainMenuSound() {
@@ -96,8 +95,7 @@ public enum SoundResources implements Resources {
 
     public Player getLearningShapeSelfDescription(String shapeName) throws PlayerFactory.UnknownSoundTypeException {
         String soundName = getLearningShapeSelfDescriptionSoundName(shapeName);
-        Player currentLearningShapeSelfDescription = playerFactory.getPlayer(soundName);
-        return currentLearningShapeSelfDescription;
+        return playerFactory.getPlayer(soundName);
     }
 
     private static String getLearningShapeSelfDescriptionSoundName(String shapeName) {
@@ -110,15 +108,13 @@ public enum SoundResources implements Resources {
 
     public Player getShapeGameTitleSound(String lookedForShapeName) throws PlayerFactory.UnknownSoundTypeException {
         String soundName = String.format("%s_find_%s", PlayerType.SPEECH.getPrefix(), lookedForShapeName);
-        Player currentShapeGameTitleSound = playerFactory.getPlayer(soundName);
-        return currentShapeGameTitleSound;
+        return playerFactory.getPlayer(soundName);
 
     }
 
     public Player getColorGameTitleSound(ColorFactory.Color color) throws PlayerFactory.UnknownSoundTypeException {
         String soundName = String.format("%s_find_%s", PlayerType.SPEECH.getPrefix(), color.getColorName());
-        Player currentColorGameTitleSound = playerFactory.getPlayer(soundName);
-        return currentColorGameTitleSound;
+        return playerFactory.getPlayer(soundName);
     }
 
     public static Player resetSound(Player player) throws PlayerFactory.UnknownSoundTypeException {

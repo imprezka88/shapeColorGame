@@ -10,9 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import com.ewareza.android.R;
-import com.ewareza.shapegame.app.CountingActivity;
-import com.ewareza.shapegame.app.Game;
-import com.ewareza.shapegame.app.GameEngine;
+import com.ewareza.shapegame.app.CountingLocalizedActivity;
 import com.ewareza.shapegame.app.PersistentGameSettings;
 import com.ewareza.shapegame.app.learning.LearningGameActivity;
 import com.ewareza.shapegame.app.utils.GameUtils;
@@ -24,7 +22,7 @@ import java.util.concurrent.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ShapeGameActivity extends CountingActivity {
+public class ShapeGameActivity extends CountingLocalizedActivity {
     private final static Logger Log = Logger.getLogger(ShapeGameActivity.class.getName());
     private GameView gameView;
     private CyclicBarrier gameOverCyclicBarrier = new CyclicBarrier(2);
@@ -172,6 +170,11 @@ public class ShapeGameActivity extends CountingActivity {
     private void startNewGame() {
         ShapeColorGame.setToFirstGame();
         gameEngine.generateNewGame();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }
 

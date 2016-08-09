@@ -1,8 +1,7 @@
-package com.ewareza.shapegame.app;
+package com.ewareza.shapegame.app.shapeColorGame;
 
 import android.graphics.Canvas;
 import android.graphics.Point;
-import com.ewareza.shapegame.app.shapeColorGame.ShapeColorGame;
 import com.ewareza.shapegame.app.shapeColorGame.singleGame.SingleGame;
 import com.ewareza.shapegame.app.shapeColorGame.singleGame.generator.SingleGameFactory;
 import com.ewareza.shapegame.player.SoundResourcesManager;

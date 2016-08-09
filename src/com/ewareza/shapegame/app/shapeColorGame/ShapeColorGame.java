@@ -1,8 +1,6 @@
 package com.ewareza.shapegame.app.shapeColorGame;
 
 import android.graphics.Canvas;
-import com.ewareza.shapegame.app.Game;
-import com.ewareza.shapegame.app.GameEngine;
 
 import java.util.Arrays;
 import java.util.List;

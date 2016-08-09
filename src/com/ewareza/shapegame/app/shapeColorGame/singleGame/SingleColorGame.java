@@ -1,6 +1,6 @@
 package com.ewareza.shapegame.app.shapeColorGame.singleGame;
 
-import com.ewareza.shapegame.app.Game;
+import com.ewareza.shapegame.app.shapeColorGame.Game;
 import com.ewareza.shapegame.domain.Splash;
 import com.ewareza.shapegame.domain.factory.ColorFactory;
 import com.ewareza.shapegame.domain.factory.SquareFactory;

@@ -17,9 +17,9 @@ public abstract class ShapeFactory {
 
     static
     {
-        scaledShapeSideSizes.add(ScaledDimenRes.getScaledDimenY(140));
-        scaledShapeSideSizes.add(ScaledDimenRes.getScaledDimenY(160));
-        scaledShapeSideSizes.add(ScaledDimenRes.getScaledDimenY(180));
+        scaledShapeSideSizes.add(ScaledDimenRes.getShapeSize1());
+        scaledShapeSideSizes.add(ScaledDimenRes.getShapeSize2());
+        scaledShapeSideSizes.add(ScaledDimenRes.getShapeSize3());
     }
 
     private final Random random = new Random();

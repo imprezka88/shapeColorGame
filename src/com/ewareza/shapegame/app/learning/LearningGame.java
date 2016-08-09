@@ -1,11 +1,7 @@
 package com.ewareza.shapegame.app.learning;
 
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import com.ewareza.shapegame.app.utils.GameUtils;
 import com.ewareza.shapegame.player.SoundResourcesManager;
-import com.ewareza.shapegame.resources.ScaledDimenRes;
 
 import java.util.HashMap;
 import java.util.Map;

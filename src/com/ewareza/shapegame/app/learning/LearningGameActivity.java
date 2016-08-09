@@ -9,7 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import com.ewareza.android.R;
-import com.ewareza.shapegame.app.CountingActivity;
+import com.ewareza.shapegame.app.CountingLocalizedActivity;
 import com.ewareza.shapegame.app.GameSettings;
 import com.ewareza.shapegame.app.shapeColorGame.ShapeGameActivity;
 import com.ewareza.shapegame.app.utils.GameUtils;
@@ -21,7 +21,7 @@ import com.ewareza.shapegame.resources.ImageResources;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LearningGameActivity extends CountingActivity {
+public class LearningGameActivity extends CountingLocalizedActivity {
     private LearningGame learningGame = LearningGame.INSTANCE;
     private Map<String, ImageView> shapes = new HashMap<>();
 

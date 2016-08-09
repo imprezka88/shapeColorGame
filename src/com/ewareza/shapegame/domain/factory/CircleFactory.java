@@ -2,12 +2,9 @@ package com.ewareza.shapegame.domain.factory;
 
 import android.graphics.Point;
 import android.graphics.Rect;
-import com.ewareza.shapegame.app.Game;
+import com.ewareza.shapegame.app.shapeColorGame.Game;
 import com.ewareza.shapegame.app.utils.GameUtils;
 import com.ewareza.shapegame.domain.shape.AbstractShape;
-import com.ewareza.shapegame.resources.ScaledDimenRes;
-
-import static android.R.attr.left;
 
 public class CircleFactory extends ShapeFactory {
     private static final CircleFactory INSTANCE = new CircleFactory();

@@ -6,16 +6,16 @@ import com.ewareza.shapegame.resources.ScaledDimenRes;
 
 public class DimensionScaler {
     public static ViewGroup.LayoutParams getScaledParams(ViewGroup.LayoutParams params) {
-        params.width = ScaledDimenRes.getScaledDimenX(params.width);
-        params.height = ScaledDimenRes.getScaledDimenY(params.height);
+        params.width = ScaledDimenRes.getScaledDimenXForValue(params.width);
+        params.height = ScaledDimenRes.getScaledDimenYForValue(params.height);
 
         if(params instanceof LinearLayout.LayoutParams) {
             LinearLayout.LayoutParams linearLayoutParams = (LinearLayout.LayoutParams) params;
 
-            linearLayoutParams.leftMargin = ScaledDimenRes.getScaledDimenX(linearLayoutParams.leftMargin);
-            linearLayoutParams.topMargin = ScaledDimenRes.getScaledDimenY(linearLayoutParams.topMargin);
-            linearLayoutParams.rightMargin = ScaledDimenRes.getScaledDimenX(linearLayoutParams.rightMargin);
-            linearLayoutParams.bottomMargin = ScaledDimenRes.getScaledDimenY(linearLayoutParams.bottomMargin);
+            linearLayoutParams.leftMargin = ScaledDimenRes.getScaledDimenXForValue(linearLayoutParams.leftMargin);
+            linearLayoutParams.topMargin = ScaledDimenRes.getScaledDimenYForValue(linearLayoutParams.topMargin);
+            linearLayoutParams.rightMargin = ScaledDimenRes.getScaledDimenXForValue(linearLayoutParams.rightMargin);
+            linearLayoutParams.bottomMargin = ScaledDimenRes.getScaledDimenYForValue(linearLayoutParams.bottomMargin);
 
             return linearLayoutParams;
         }

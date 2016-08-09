@@ -37,7 +37,6 @@
         </activity>
         <activity
                 android:name="com.ewareza.shapegame.app.main.MainScreenActivity"
-                android:label="Kształty i kolory"
                 android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
                 android:screenOrientation="landscape">
             <intent-filter>

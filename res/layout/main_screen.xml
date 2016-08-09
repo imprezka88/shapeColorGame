@@ -9,36 +9,39 @@
               android:orientation="vertical"
               tools:context="com.ewareza.com.ewareza.shapegame.app.main.MainScreenActivity">
 
-    <com.ewareza.shapegame.app.components.ScaledLinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|right"
-            android:layout_marginTop="@dimen/main_sounds_buttons_margin_top"
-            android:layout_marginRight="@dimen/main_sounds_buttons_margin_right"
-            >
+        <com.ewareza.shapegame.app.components.ScaledLinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|right"
+                android:layout_marginTop="@dimen/main_sounds_buttons_margin_top"
+                android:layout_marginRight="@dimen/main_sounds_buttons_margin_right"
+                >
 
-        <com.ewareza.shapegame.app.components.ScaledImageButton
-                android:layout_width="@dimen/main_sounds_button_size"
-                android:layout_height="@dimen/main_sounds_button_size"
-                android:id="@+id/sounds_on_off"
-                android:src="@drawable/sounds_on"
-                android:adjustViewBounds="false"
-                android:background="@drawable/round_button"
-                android:scaleType="centerCrop"
-                android:padding="@dimen/main_sounds_button_padding"/>
+            <com.ewareza.shapegame.app.components.ScaledImageButton
+                    android:layout_width="@dimen/main_language_size"
+                    android:layout_height="@dimen/main_language_size"
+                    android:src="@drawable/language_flag"
+                    android:scaleType="centerCrop"
+                    android:background="@null"
+                    android:id="@+id/language_change"
+                    />
 
-        <com.ewareza.shapegame.app.components.ScaledImageButton
-                android:layout_width="@dimen/main_sounds_button_size"
-                android:layout_height="@dimen/main_sounds_button_size"
-                android:id="@+id/speaking_on_off"
-                android:src="@drawable/speaking_on"
-                android:adjustViewBounds="false"
-                android:background="@drawable/round_button"
-                android:scaleType="centerCrop"
-                android:padding="@dimen/main_sounds_button_padding"
-                android:layout_marginLeft="@dimen/main_speaking_button_margin_left"/>
-    </com.ewareza.shapegame.app.components.ScaledLinearLayout>
+            <com.ewareza.shapegame.app.components.ScaledImageButton
+                    android:layout_width="@dimen/main_language_size"
+                    android:layout_height="@dimen/main_language_size"
+                    android:id="@+id/sounds_on_off"
+                    android:background="@drawable/sounds_on"
+                    android:layout_marginLeft="@dimen/main_speaking_button_margin_left"
+                    />
+
+            <com.ewareza.shapegame.app.components.ScaledImageButton
+                    android:layout_width="@dimen/main_language_size"
+                    android:layout_height="@dimen/main_language_size"
+                    android:id="@+id/speaking_on_off"
+                    android:background="@drawable/speaking_on"
+                    android:layout_marginLeft="@dimen/main_speaking_button_margin_left"/>
+        </com.ewareza.shapegame.app.components.ScaledLinearLayout>
 
     <com.ewareza.shapegame.app.components.ScaledLinearLayout
             android:orientation="horizontal"
@@ -134,13 +137,14 @@
                 <com.ewareza.shapegame.app.components.ScaledImageButton
                         android:layout_width="@dimen/main_start_game_button_width"
                         android:layout_height="@dimen/main_start_game_button_height"
+                        android:layout_marginTop="20dp"
                         android:id="@+id/newColorGameButton"
                         android:layout_weight="2.06"
                         android:src="@drawable/color_game_button_image"
                         android:background="@drawable/cloud"
                         android:visibility="visible"
                         android:layout_gravity="right"
-                        android:scaleType="fitXY"
+                        android:scaleType="centerCrop"
                         android:padding="35dp"
                         />
             </com.ewareza.shapegame.app.components.ScaledFrameLayout>

@@ -25,6 +25,9 @@ public enum ScaledDimenRes implements Resources {
     private static int learningPhaseOneShapePaddingBottom;
     private static int learningPhaseOneShapePaddingLeft;
     private static int learningPhaseOneShapePaddingRight;
+    private static int shapeSize1;
+    private static int shapeSize2;
+    private static int shapeSize3;
 
     private static Context context;
 
@@ -42,13 +45,29 @@ public enum ScaledDimenRes implements Resources {
         defaultScreenHeightInPx = context.getResources().getDimensionPixelSize(R.dimen.default_screen_height);
 
         gameTitleHeightInPx = getScaledDimenYById(R.dimen.gameTitleHeight);
-        mainScreenGameNameTextSize = getScaledDimenY(context.getResources().getDimensionPixelSize(R.dimen.main_screen_game_name_text_size));
+        mainScreenGameNameTextSize = getScaledDimenYForValue(context.getResources().getDimensionPixelSize(R.dimen.main_screen_game_name_text_size));
 
         learningPhaseOneShapePaddingBottom = getScaledDimenYById(R.dimen.learning_phase_one_shape_padding_bottom);
         learningPhaseOneShapePaddingLeft = getScaledDimenXById(R.dimen.learning_phase_one_shape_padding_left);
         learningPhaseOneShapePaddingRight = getScaledDimenXById(R.dimen.learning_phase_one_shape_padding_right);
 
+        shapeSize1 = getScaledDimenXById(R.dimen.shapeSize1);
+        shapeSize2 = getScaledDimenXById(R.dimen.shapeSize2);
+        shapeSize3 = getScaledDimenXById(R.dimen.shapeSize3);
+
         logger.info(String.format("Current screen width: %d px, current screen height: %d px", screenWidthInPx, screenHeightInPx));
+    }
+
+    public static int getShapeSize1() {
+        return shapeSize1;
+    }
+
+    public static int getShapeSize2() {
+        return shapeSize2;
+    }
+
+    public static int getShapeSize3() {
+        return shapeSize3;
     }
 
     public static int getLearningPhaseOneShapePaddingRight() {
@@ -89,13 +108,13 @@ public enum ScaledDimenRes implements Resources {
         return context.getResources().getDimensionPixelSize(id);
     }
 
-    public static int getScaledDimenX(int value) {
+    public static int getScaledDimenXForValue(int value) {
         int scaledValue = (int) (((double) value / defaultScreenWidthInPx) * ScaledDimenRes.getScreenWidthInPx());
 
         return scaledValue;
     }
 
-    public static int getScaledDimenY(int value) {
+    public static int getScaledDimenYForValue(int value) {
         int scaledValue = (int) (((double) value / defaultScreenHeightInPx) * ScaledDimenRes.getScreenHeightInPx());
 
         return scaledValue;
@@ -103,20 +122,20 @@ public enum ScaledDimenRes implements Resources {
 
     public static int getScaledDimenXById(int dimenId) {
         int dimen = getDimenById(dimenId);
-        return getScaledDimenX(dimen);
+        return getScaledDimenXForValue(dimen);
     }
 
     public static int getScaledDimenYById(int dimenId) {
         int dimen = getDimenById(dimenId);
-        return getScaledDimenY(dimen);
+        return getScaledDimenYForValue(dimen);
     }
 
     public static int getScaledDimenXByName(String dimenName) {
-        return getScaledDimenX(getDimenByName(dimenName));
+        return getScaledDimenXForValue(getDimenByName(dimenName));
     }
 
     public static int getScaledDimenYByName(String dimenName) {
-        return getScaledDimenY(getDimenByName(dimenName));
+        return getScaledDimenYForValue(getDimenByName(dimenName));
     }
 
     private static int getDimenByName(String dimenName) {

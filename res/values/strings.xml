@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Shape Game</string>
+    <string name="app_name">Shapes and Colours</string>
     <string name="rectangle">rectangle</string>
     <string name="circle">circle</string>
     <string name="triangle">triangle</string>

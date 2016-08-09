@@ -1,7 +1,6 @@
 package com.ewareza.shapegame.app.shapeColorGame;
 
 import android.graphics.Point;
-import com.ewareza.shapegame.app.GameEngine;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.CyclicBarrier;

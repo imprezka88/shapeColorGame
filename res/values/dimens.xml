@@ -18,6 +18,8 @@
 
     <dimen name="main_sounds_button_padding">7dp</dimen>
 
+    <dimen name="main_language_size">35dp</dimen>
+
     <!-- START NEW LEARNING/SHAPE GAME/COLOR GAME BUTTONS-->
     <dimen name="main_start_game_button_width">220dp</dimen>
     <dimen name="main_start_game_button_height">140dp</dimen>
@@ -96,5 +98,8 @@
 
     <!-- SHAPE COLOR GAME-->
     <dimen name="gameTitleHeight">75dp</dimen>
+    <dimen name="shapeSize1">70dp</dimen>
+    <dimen name="shapeSize2">80dp</dimen>
+    <dimen name="shapeSize3">90dp</dimen>
 
 </resources>
