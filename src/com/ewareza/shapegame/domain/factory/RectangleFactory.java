@@ -16,11 +16,11 @@ public class RectangleFactory extends ShapeFactory {
     }
 
     @Override
-    public AbstractShape getRandomShape(Rect areaToGenerateShape) {
+    public AbstractShape getRandomShape(Rect areaToGenerateShape, ColorFactory.Color color) {
         Point point = getRandomPointOnCanvas(areaToGenerateShape);
         int left = point.x;
         int top = point.y;
-        return getShape(left, top);
+        return getShape(left, top, color);
     }
 
     @Override
@@ -33,14 +33,14 @@ public class RectangleFactory extends ShapeFactory {
         return Rectangle.RECTANGLE;
     }
 
-    private AbstractShape getShape(int left, int top) {
+    private AbstractShape getShape(int left, int top, ColorFactory.Color color) {
         int randomRectSizeWidth = (int) (getRandomRectSize() * WIDTH_TO_HEIGHT_FACTOR);
         int randomRectSizeHeight = getMinRectSize();
 
         int right = left + randomRectSizeWidth;
         int bottom = top + randomRectSizeHeight;
 
-        return new Rectangle(new Rect(left, top, right, bottom), ColorFactory.generateColor());
+        return new Rectangle(new Rect(left, top, right, bottom), color);
     }
 
     @Override

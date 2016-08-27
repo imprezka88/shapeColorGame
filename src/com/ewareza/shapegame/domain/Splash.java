@@ -6,7 +6,7 @@ import com.ewareza.shapegame.domain.shape.AbstractShape;
 import com.ewareza.shapegame.drawer.Drawer;
 
 public class Splash extends AbstractShape {
-    private static final String SPLASH = "splash";
+    private static final String SPLASH = "game_splash";
 
     public Splash(Rect associatedRect, ColorFactory.Color color, Drawer drawer) {
         super(associatedRect, color, drawer);

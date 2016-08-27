@@ -17,10 +17,6 @@ public class SingleColorGame extends SingleGame {
         setNumberOfLookedForShapesOnScreen(singleGameState.getNumberOfLookedForObjects());
     }
 
-    public ColorFactory.Color getCurrentLookedForColor() {
-        return currentLookedForColor;
-    }
-
     private int countNumberOfLookedForObjects() {
         int numberOfLookedForObjects = 0;
         for (AbstractShape shape : getSingleGameState().getShapes()) {
@@ -44,7 +40,6 @@ public class SingleColorGame extends SingleGame {
     @Override
     public Shape getGameTitleShape() {
         SquareFactory.Square square = (SquareFactory.Square) SquareFactory.getInstance().getGameTitleShape();
-
         return new Splash(square.getAssociatedRect(), currentLookedForColor, Game.getDrawer());
     }
 

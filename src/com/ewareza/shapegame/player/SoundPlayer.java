@@ -50,15 +50,6 @@ class SoundPlayer implements Player {
     public void start() {
         if(PersistentGameSettings.getSoundsEnabled()) {
             delegate.start();
-            /*SoundResources.getInstance().addSound(this);
-            MediaPlayer.OnCompletionListener removingListener = new MediaPlayer.OnCompletionListener() {
-
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    SoundResources.getInstance().removeSound(SoundPlayer.this);
-                }
-            };
-            this.setOnCompletionListener(removingListener);*/
         }
     }
 

@@ -37,7 +37,6 @@ public class LearningGameActivity extends CountingLocalizedActivity {
         initStartShapeGameButton();
         initStartColorGameButton();
         setFrogViewAnimation();
-        initShapeAnimations();
     }
 
     private void initFirstLearningPhaseView() {
@@ -93,6 +92,7 @@ public class LearningGameActivity extends CountingLocalizedActivity {
         String shapeName = shapeFactory.getShapeName();
         int shapeId = getResources().getIdentifier(shapeName, GameUtils.RESOURCE_TYPE_ID, GameUtils.RESOURCE_PACKAGE);
         ImageView shape = (ImageView) findViewById(shapeId);
+        shape.setVisibility(View.INVISIBLE);
         ColorFactory.Color learningShapeColor = LearningShapesGenerator.getLearningShapeColor(shapeFactory);
         Drawable shapeImage = ImageResources.getInstance().getResource(shapeName, learningShapeColor);
 
@@ -106,7 +106,7 @@ public class LearningGameActivity extends CountingLocalizedActivity {
         shape.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SoundResourcesManager.playLearningShapeSelfDescription(shapeName, shapeFactory.getShapeClass());
+                SoundResourcesManager.playLearningShapeSelfDescription(shapeFactory, learningShapeColor);
             }
         });
 
@@ -146,6 +146,7 @@ public class LearningGameActivity extends CountingLocalizedActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        initShapeAnimations();
         LearningGame.getInstance().setToInitialState();
         SoundResourcesManager.turnDownMainScreenSound();
         SoundResourcesManager.resumeMainMenuSound();

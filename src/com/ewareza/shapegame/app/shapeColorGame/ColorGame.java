@@ -17,5 +17,4 @@ public class ColorGame extends ShapeColorGame {
     public int getNextGameImageIdentifier() {
         return ImageResources.getShapeGameImageIdentifier();
     }
-
 }

@@ -27,4 +27,8 @@ class PlayerWithAnimation {
             });
         }
     }
+
+    void setOnCompletionListener(MediaPlayer.OnCompletionListener listener) {
+        player.setOnCompletionListener(listener);
+    }
 }

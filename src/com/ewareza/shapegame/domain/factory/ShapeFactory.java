@@ -44,7 +44,7 @@ public abstract class ShapeFactory {
         return getMinRectSize();
     }
 
-    public abstract AbstractShape getRandomShape(Rect areaToGenerateShape);
+    public abstract AbstractShape getRandomShape(Rect areaToGenerateShape, ColorFactory.Color color);
 
     public abstract Class<? extends AbstractShape> getShapeClass();
 

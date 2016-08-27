@@ -9,6 +9,7 @@ import com.ewareza.shapegame.player.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 //@TODO cache media players retrieved dynamically, one play method with sound enability check
@@ -140,5 +141,23 @@ public enum SoundResources implements Resources {
 
     public List<Player> getSounds() {
         return sounds;
+    }
+
+    public Player getLearningShapeColorDescription(String shapeName, ColorFactory.Color color) throws PlayerFactory.UnknownSoundTypeException {
+        String soundName = String.format("%s_this_%s_is_%s", PlayerType.SPEECH.getPrefix(), shapeName, color.getColorName());
+        return playerFactory.getPlayer(soundName);
+    }
+
+    public Player getLearningShapeColorSelfDescription(String shapeName, String colorName) throws PlayerFactory.UnknownSoundTypeException {
+        String soundName = String.format("%s_im_%s_%s", PlayerType.SPEECH.getPrefix(), colorName, shapeName);
+
+        try {
+            return playerFactory.getPlayer(soundName);
+        } catch (Exception e) {
+            Log.log(Level.INFO, String.format("Could not find color self description sound for shape: %s, color:%s. Will try to play specific sound for this shape.", shapeName, colorName));
+        }
+
+        soundName = String.format("%s_im_%s", PlayerType.SPEECH.getPrefix(), colorName);
+        return playerFactory.getPlayer(soundName);
     }
 }

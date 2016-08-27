@@ -9,7 +9,9 @@ import com.ewareza.shapegame.app.utils.GameUtils;
 import com.ewareza.shapegame.domain.factory.ColorFactory;
 import com.ewareza.shapegame.domain.shape.Shape;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public enum ImageResources implements Resources {
@@ -24,26 +26,10 @@ public enum ImageResources implements Resources {
     private static int learningImageButtonIdentifier;
     private Drawable shapeGameImage;
     private Drawable colorGameImage;
-    private Drawable balloons;
-    private Drawable balloons2;
-    private Drawable flowers;
     private Drawable learningBackgroundImage;
-    private Drawable flowers2;
-    private Drawable sun;
-    private Drawable butterflies;
-    private Drawable butterflies2;
-    private Drawable bird;
-    private Drawable hearts;
-    private Drawable balloons3;
-    private Drawable balloons4;
-    private Drawable balloonToy;
-    private Drawable hearts2;
-    private Drawable bird2;
-    private Drawable bird3;
-    private Drawable airplane;
-    private Drawable birthdayCake;
     private ImageView learningFrogView;
     private Drawable gameBackground;
+    private List<Drawable> gameOverImages = new ArrayList<>();
 
     public ImageView getLearningFrogView() {
         return learningFrogView;
@@ -54,68 +40,8 @@ public enum ImageResources implements Resources {
         talkingFrogAnimation = (AnimationDrawable) learningFrogView.getBackground();
     }
 
-    public Drawable getBalloons3() {
-        return balloons3;
-    }
-
-    public Drawable getBalloons4() {
-        return balloons4;
-    }
-
-    public Drawable getBalloonToy() {
-        return balloonToy;
-    }
-
-    public Drawable getHearts2() {
-        return hearts2;
-    }
-
-    public Drawable getBird2() {
-        return bird2;
-    }
-
-    public Drawable getBird3() {
-        return bird3;
-    }
-
-    public Drawable getAirplane() {
-        return airplane;
-    }
-
-    public Drawable getBirthdayCake() {
-        return birthdayCake;
-    }
-
-    public Drawable getFlowers2() {
-        return flowers2;
-    }
-
-    public Drawable getSun() {
-        return sun;
-    }
-
-    public Drawable getButterflies() {
-        return butterflies;
-    }
-
-    public Drawable getButterflies2() {
-        return butterflies2;
-    }
-
-    public Drawable getBird() {
-        return bird;
-    }
-
-    public Drawable getHearts() {
-        return hearts;
-    }
-
     public Drawable getLearningBackgroundImage() {
         return learningBackgroundImage;
-    }
-
-    public Drawable getBalloons() {
-        return balloons;
     }
 
     public Drawable getColorGameImage() {
@@ -154,14 +80,6 @@ public enum ImageResources implements Resources {
         this.talkingFrogAnimation = talkingFrogAnimation;
     }
 
-    public Drawable getBalloons2() {
-        return balloons2;
-    }
-
-    public Drawable getFlowers() {
-        return flowers;
-    }
-
     public Drawable getResource(String shapeName, ColorFactory.Color color) {
         String fileName = String.format("%s_%s", shapeName, color.getColorName());
         int identifier = context.getResources().getIdentifier(fileName, GameUtils.RESOURCE_TYPE_DRAWABLE, GameUtils.RESOURCE_PACKAGE);
@@ -187,13 +105,17 @@ public enum ImageResources implements Resources {
         return shapeToAnimationMap.get(shapeClass);
     }
 
+    public List<Drawable> getGameOverImages() {
+        return gameOverImages;
+    }
+
     @Override
     public void init(Context context) {
         ImageResources.context = context;
         gameBackground = context.getResources().getDrawable(R.drawable.game_background_screen);
-        colorGameImageIdentifier = R.drawable.color_game_button_image;
+        colorGameImageIdentifier = R.drawable.main_menu_start_color_game_button;
 
-        shapeGameImageIdentifier = R.drawable.shape_game_button_image;
+        shapeGameImageIdentifier = R.drawable.game_shape_game_button;
         learningImageButtonIdentifier = R.drawable.main_menu_learning_button_enabled;
 
         shapeGameImage = context.getResources().getDrawable(shapeGameImageIdentifier);
@@ -203,30 +125,16 @@ public enum ImageResources implements Resources {
     }
 
     private void initGameOverImages(Context context) {
-        balloons = context.getResources().getDrawable(R.drawable.game_over_balloons);
-        balloons2 = context.getResources().getDrawable(R.drawable.game_over_balloons2);
-        balloons3 = context.getResources().getDrawable(R.drawable.game_over_balloons3);
-        balloons4 = context.getResources().getDrawable(R.drawable.game_over_balloons4);
-        balloonToy = context.getResources().getDrawable(R.drawable.game_over_balloon_toy);
+        int resId;
+        int imageNumber = 1;
 
-        flowers = context.getResources().getDrawable(R.drawable.game_over_flowers);
-        flowers2 = context.getResources().getDrawable(R.drawable.game_over_flowers2);
-
-        sun = context.getResources().getDrawable(R.drawable.game_over_sun);
-
-        butterflies = context.getResources().getDrawable(R.drawable.game_over_butterflies);
-        butterflies2 = context.getResources().getDrawable(R.drawable.game_over_butterflies2);
-
-        bird = context.getResources().getDrawable(R.drawable.game_over_bird);
-        bird2 = context.getResources().getDrawable(R.drawable.game_over_bird2);
-        bird3 = context.getResources().getDrawable(R.drawable.game_over_bird3);
-
-        airplane = context.getResources().getDrawable(R.drawable.game_over_airplane);
-
-        hearts = context.getResources().getDrawable(R.drawable.game_over_hearts);
-        hearts2 = context.getResources().getDrawable(R.drawable.game_over_hearts2);
-
-        birthdayCake = context.getResources().getDrawable(R.drawable.game_over_birthday_cake);
+        do {
+            resId = context.getResources().getIdentifier("game_over" + imageNumber, GameUtils.RESOURCE_TYPE_DRAWABLE, GameUtils.RESOURCE_PACKAGE);
+            if (resId != 0)
+                gameOverImages.add(context.getResources().getDrawable(resId));
+            imageNumber++;
+        }
+        while (resId != 0);
     }
 
     public Drawable getGameBackground() {

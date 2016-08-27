@@ -20,8 +20,8 @@ class ShapeGameDisplayThread extends DisplayThread {
     private AtomicInteger bottom;
     private Drawable gameOverImage;
     private AtomicBoolean gameOverImageSet = new AtomicBoolean(false);
-    private int gameOverImageVerticalSpeed = 10;
-    private int gameOverImageHorizontalSpeed = 3;
+    private int gameOverImageVerticalSpeed = ScaledDimenRes.getGameOverImageVerticalSpeed();
+    private int gameOverImageHorizontalSpeed = ScaledDimenRes.getGameOverImageHorizontalSpeed();
 
     ShapeGameDisplayThread(SurfaceHolder surfaceHolder) {
         super(surfaceHolder);

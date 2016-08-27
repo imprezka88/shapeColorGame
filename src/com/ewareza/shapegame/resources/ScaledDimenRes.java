@@ -29,6 +29,9 @@ public enum ScaledDimenRes implements Resources {
     private static int shapeSize2;
     private static int shapeSize3;
 
+    private static int gameOverImageVerticalSpeed;
+    private static int gameOverImageHorizontalSpeed;
+
     private static Context context;
 
     @Override
@@ -54,8 +57,18 @@ public enum ScaledDimenRes implements Resources {
         shapeSize1 = getScaledDimenXById(R.dimen.shapeSize1);
         shapeSize2 = getScaledDimenXById(R.dimen.shapeSize2);
         shapeSize3 = getScaledDimenXById(R.dimen.shapeSize3);
+        gameOverImageVerticalSpeed = getScaledDimenYById(R.dimen.gameOverImageVerticalSpeed);
+        gameOverImageHorizontalSpeed = getScaledDimenYById(R.dimen.gameOverImageHorizontalSpeed);
 
         logger.info(String.format("Current screen width: %d px, current screen height: %d px", screenWidthInPx, screenHeightInPx));
+    }
+
+    public static int getGameOverImageHorizontalSpeed() {
+        return gameOverImageHorizontalSpeed;
+    }
+
+    public static int getGameOverImageVerticalSpeed() {
+        return gameOverImageVerticalSpeed;
     }
 
     public static int getShapeSize1() {

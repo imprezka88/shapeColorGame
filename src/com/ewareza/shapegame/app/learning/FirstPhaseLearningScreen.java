@@ -11,7 +11,6 @@ import com.ewareza.shapegame.resources.ScaledDimenRes;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public enum FirstPhaseLearningScreen implements LearningScreen {
@@ -29,20 +28,18 @@ public enum FirstPhaseLearningScreen implements LearningScreen {
     }
 
     AbstractShape getCurrentLearningShape() {
-        ShapeFactory shapeFactory = shapeFactories.get(currentLearningShapeNumber.get());
-        return shapeFactory.getGameTitleShape();
+        /*ShapeFactory shapeFactory = shapeFactories.get(currentLearningShapeNumber.get());
+        return shapeFactory.getGameTitleShape();*/
+
+        return learningShapes.get(currentLearningShapeNumber.get());
     }
 
     public void learnNextShape() {
         if (isFirstLearningPhase()) {
             currentLearningShapeNumber.incrementAndGet();
-            SoundResourcesManager.playLearningShapePhaseOneDescriptionSound(getCurrentLearningShapeName());
+            SoundResourcesManager.playLearningShapePhaseOneDescriptionSound(getCurrentLearningShape().getName(), getCurrentLearningShape().getColor());
         } else
             LearningGame.INSTANCE.onPhaseOneFinished();
-    }
-
-    private String getCurrentLearningShapeName() {
-        return getCurrentLearningShape().getName();
     }
 
     public boolean isFirstLearningPhase() {

@@ -27,7 +27,6 @@ public enum LearningGame {
     public void onPhaseOneFinished() {
         firstPhaseScreen.clearLearningShapes();
         firstPhaseDisplayThread.setFinish(true);
-//        GameUtils.StopThread(firstPhaseDisplayThread);
         showTalkingShapes();
         SoundResourcesManager.playStartLearningPhaseTwoSound();
     }
@@ -46,7 +45,7 @@ public enum LearningGame {
 
     public void startPresentingShapes() {
         shouldUpdateScreen.set(true);
-        SoundResourcesManager.playLearningShapePhaseOneDescriptionSound(firstPhaseScreen.getCurrentLearningShape().getName());
+        SoundResourcesManager.playLearningShapePhaseOneDescriptionSound(firstPhaseScreen.getCurrentLearningShape().getName(), firstPhaseScreen.getCurrentLearningShape().getColor());
     }
 
     public LearningScreen getLearningScreen() {

@@ -30,7 +30,9 @@ class LearningShapesGenerator {
         generateShapeToColorMap();
         List<AbstractShape> learningShapes = new ArrayList<>();
         for (ShapeFactory shapeFactory : GameSettings.getShapeFactories()) {
-            learningShapes.add(shapeFactory.getLearningPhaseOneShape(shapeFactoryToColorMap.get(shapeFactory)));
+            AbstractShape learningPhaseOneShape = shapeFactory.getLearningPhaseOneShape(shapeFactoryToColorMap.get(shapeFactory));
+            learningPhaseOneShape.setColor(shapeFactoryToColorMap.get(shapeFactory));
+            learningShapes.add(learningPhaseOneShape);
         }
 
         return learningShapes;

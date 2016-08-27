@@ -4,6 +4,8 @@ import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import com.ewareza.shapegame.app.learning.LearningGame;
 import com.ewareza.shapegame.domain.factory.ColorFactory;
+import com.ewareza.shapegame.domain.factory.ShapeFactory;
+import com.ewareza.shapegame.domain.shape.AbstractShape;
 import com.ewareza.shapegame.domain.shape.Shape;
 import com.ewareza.shapegame.resources.ImageResources;
 import com.ewareza.shapegame.resources.SoundResources;
@@ -17,7 +19,7 @@ public class SoundResourcesManager {
 
     private static AtomicBoolean stopPlayingLearningSounds = new AtomicBoolean(false);
 
-    public static void playLearningShapePhaseOneDescriptionSound(String shapeName) {
+    public static void playLearningShapePhaseOneDescriptionSound(String shapeName, ColorFactory.Color color) {
         if (!stopPlayingLearningSounds.get()) {
             try {
                 Player learningShapeDescription = SoundResources.INSTANCE.getLearningShapeDescription(shapeName);
@@ -28,12 +30,33 @@ public class SoundResourcesManager {
                 learningShapeDescription.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
-                        tryToLearnNextShape();
+                        playLearningShapePhaseOneColorDescription(shapeName, color);
                     }
                 });
 
             } catch (Exception e) {
                 Log.log(Level.WARNING, String.format("Could not play learning shape description voice in phase one for shape: %s. : %s", shapeName, e.getMessage()), e);
+                tryToLearnNextShape();
+            }
+        }
+    }
+
+    private static void playLearningShapePhaseOneColorDescription(String shapeName, ColorFactory.Color color) {
+        if(!stopPlayingLearningSounds.get()) {
+            try {
+                Player learningShapeColor = SoundResources.INSTANCE.getLearningShapeColorDescription(shapeName, color);
+
+                learningShapeColor.startAndRelease();
+                animateTalkingFrogIfPossible(learningShapeColor);
+
+                learningShapeColor.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        tryToLearnNextShape();
+                    }
+                });
+            } catch (Exception e) {
+                Log.log(Level.WARNING, String.format("Could not play learning shape color description voice in phase one for shape: %s, color: %s. : %s", shapeName, color, e.getMessage()), e);
                 tryToLearnNextShape();
             }
         }
@@ -49,15 +72,36 @@ public class SoundResourcesManager {
         }
     }
 
-    public static void playLearningShapeSelfDescription(String shapeName, Class<? extends Shape> shapeClass) {
+    public static void playLearningShapeSelfDescription(ShapeFactory shapeFactory, ColorFactory.Color color) {
+        String shapeName = shapeFactory.getShapeName();
         try {
             Player learningShapeSelfDescription = SoundResources.INSTANCE.getLearningShapeSelfDescription(shapeName);
+            AnimationDrawable talkingShapeAnimation = ImageResources.getInstance().getTalkingShapeAnimation(shapeFactory.getShapeClass());
+            PlayerWithAnimation playerWithAnimation = new PlayerWithAnimation(learningShapeSelfDescription, talkingShapeAnimation);
+
+            playerWithAnimation.start();
+
+            playerWithAnimation.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    playLearningShapeColorSelfDescription(shapeName, color.getColorName(), shapeFactory.getShapeClass());
+                }
+            });
+
+        } catch (PlayerFactory.UnknownSoundTypeException e) {
+            Log.warning(String.format("Could not play learning shape self description voice in phase one for shape: %s. : %s", shapeName, e.getMessage()));
+        }
+    }
+
+    private static void playLearningShapeColorSelfDescription(String shapeName, String color, Class<? extends AbstractShape> shapeClass) {
+        try {
+            Player learningShapeSelfDescription = SoundResources.INSTANCE.getLearningShapeColorSelfDescription(shapeName, color);
             AnimationDrawable talkingShapeAnimation = ImageResources.getInstance().getTalkingShapeAnimation(shapeClass);
             PlayerWithAnimation playerWithAnimation = new PlayerWithAnimation(learningShapeSelfDescription, talkingShapeAnimation);
 
             playerWithAnimation.start();
         } catch (PlayerFactory.UnknownSoundTypeException e) {
-            Log.warning(String.format("Could not play learning shape self description voice in phase one for shape: %s. : %s", shapeName, e.getMessage()));
+            Log.warning(String.format("Could not play learning shape color self description voice in phase one for shape: %s, color: %s: %s", shapeName, color, e.getMessage()));
         }
     }
 

@@ -1,53 +1,67 @@
 package com.ewareza.shapegame.app.shapeColorGame.singleGame.generator;
 
+import com.ewareza.shapegame.app.GameSettings;
 import com.ewareza.shapegame.app.shapeColorGame.singleGame.SingleColorGame;
 import com.ewareza.shapegame.app.shapeColorGame.singleGame.SingleGame;
 import com.ewareza.shapegame.app.shapeColorGame.singleGame.SingleGameState;
 import com.ewareza.shapegame.app.shapeColorGame.singleGame.SingleShapeGame;
 import com.ewareza.shapegame.app.utils.GameUtils;
+import com.ewareza.shapegame.domain.factory.ColorFactory;
+import com.ewareza.shapegame.domain.factory.ShapeFactory;
 import com.ewareza.shapegame.domain.shape.AbstractShape;
 import com.ewareza.shapegame.player.SoundResourcesManager;
-import com.ewareza.shapegame.resources.SoundResources;
 
 import java.util.List;
 
 public class SingleGameFactory {
     private static final Object lock = new Object();
-    private static final RandomShapesFactory shapesGenerator = RandomShapesFactory.getInstance();
 
     public static SingleGame createNewSingleGame(String gameType) {
-        List<AbstractShape> shapes = generateShapes();
-        SingleGameState singleGameState = new SingleGameState(shapes);
 
         //@TODO take game type from some list, in file or class
         if (shouldGenerateColorGame(gameType)) {
-            return generateSingleColorGame(singleGameState, shapes);
+            return generateSingleColorGame();
         } else {
-            return generateSingleShapeGame(singleGameState);
+            return generateSingleShapeGame();
         }
     }
 
-    private static SingleShapeGame generateSingleShapeGame(SingleGameState singleGameState) {
-        SingleShapeGame singleShapeGame = new SingleShapeGame(singleGameState, shapesGenerator.getCurrentLookedForShapeFactory());
+    private static SingleShapeGame generateSingleShapeGame() {
+        RandomShapesFactory shapesGenerator = RandomShapesFactory.newShapeGameShapesGenerator();
+        List<AbstractShape> shapes = shapesGenerator.generateRandomShapes();
+        SingleGameState singleGameState = new SingleGameState(shapes);
+
+        SingleShapeGame singleShapeGame = new SingleShapeGame(singleGameState, getCurrentLookedForShapeFactory(shapes.get(0)));
         SoundResourcesManager.playShapeGameTitleSound(singleShapeGame.getCurrentLookedForObjectName());
 
         return singleShapeGame;
     }
 
-    private static SingleColorGame generateSingleColorGame(SingleGameState singleGameState, List<AbstractShape> shapes) {
-        SingleColorGame singleColorGame = new SingleColorGame(singleGameState, shapes.get(0).getColor());
+    private static ShapeFactory getCurrentLookedForShapeFactory(AbstractShape shape) {
+        for (ShapeFactory shapeFactory : GameSettings.getShapeFactories()) {
+            if(shapeFactory.getShapeClass().equals(shape.getClass()))
+                return shapeFactory;
+        }
+
+        throw new IllegalArgumentException(String.format("Shape factory for shape: %s not found", shape.getName()));
+    }
+
+    private static SingleColorGame generateSingleColorGame() {
+        RandomShapesFactory shapesGenerator = RandomShapesFactory.newColorGameShapesGenerator();
+        List<AbstractShape> shapes = shapesGenerator.generateRandomShapes();
+        SingleGameState singleGameState = new SingleGameState(shapes);
+
+        SingleColorGame singleColorGame = new SingleColorGame(singleGameState, getCurrentLookedForColor(shapes.get(0)));
         SoundResourcesManager.playColorGameTitleSound(singleColorGame.getCurrentLookedForObject().getColor());
 
         return singleColorGame;
     }
 
-    private static boolean shouldGenerateColorGame(String gameType) {
-        return gameType.equals(GameUtils.COLOR);
+    private static ColorFactory.Color getCurrentLookedForColor(AbstractShape shape) {
+        return shape.getColor();
     }
 
-    private static List<AbstractShape> generateShapes() {
-        synchronized (lock) {
-            return shapesGenerator.generateRandomShapes();
-        }
+    private static boolean shouldGenerateColorGame(String gameType) {
+        return gameType.equals(GameUtils.COLOR);
     }
 }

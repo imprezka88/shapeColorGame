@@ -14,9 +14,9 @@ public class OvalFactory extends ShapeFactory {
     }
 
     @Override
-    public AbstractShape getRandomShape(Rect areaToGenerateShape) {
-        RectangleFactory.Rectangle rectangle = (RectangleFactory.Rectangle) RectangleFactory.getInstance().getRandomShape(areaToGenerateShape);
-        return new Oval(rectangle.asRect(), ColorFactory.generateColor());
+    public AbstractShape getRandomShape(Rect areaToGenerateShape, ColorFactory.Color color) {
+        RectangleFactory.Rectangle rectangle = (RectangleFactory.Rectangle) RectangleFactory.getInstance().getRandomShape(areaToGenerateShape, color);
+        return new Oval(rectangle.asRect(), color);
     }
 
     @Override

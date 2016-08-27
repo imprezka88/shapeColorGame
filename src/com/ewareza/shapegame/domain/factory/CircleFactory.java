@@ -14,9 +14,9 @@ public class CircleFactory extends ShapeFactory {
     }
 
     @Override
-    public AbstractShape getRandomShape(Rect areaToGenerateShape) {
-        SquareFactory.Square square = (SquareFactory.Square) SquareFactory.getInstance().getRandomShape(areaToGenerateShape);
-        return new Circle(square.getAssociatedRect(), ColorFactory.generateColor());
+    public AbstractShape getRandomShape(Rect areaToGenerateShape, ColorFactory.Color color) {
+        SquareFactory.Square square = (SquareFactory.Square) SquareFactory.getInstance().getRandomShape(areaToGenerateShape, color);
+        return new Circle(square.getAssociatedRect(), color);
     }
 
     @Override

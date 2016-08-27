@@ -102,4 +102,7 @@
     <dimen name="shapeSize2">80dp</dimen>
     <dimen name="shapeSize3">90dp</dimen>
 
+    <dimen name="gameOverImageVerticalSpeed">8dp</dimen>
+    <dimen name="gameOverImageHorizontalSpeed">1dp</dimen>
+
 </resources>

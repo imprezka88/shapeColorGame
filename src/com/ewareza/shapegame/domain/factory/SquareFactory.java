@@ -15,7 +15,7 @@ public class SquareFactory extends ShapeFactory {
     }
 
     @Override
-    public AbstractShape getRandomShape(Rect areaToGenerateShape) {
+    public AbstractShape getRandomShape(Rect areaToGenerateShape, ColorFactory.Color color) {
         Point point = getRandomPointOnCanvas(areaToGenerateShape);
         int left = point.x;
         int top = point.y;
@@ -23,7 +23,7 @@ public class SquareFactory extends ShapeFactory {
         int right = left + randomRectSize;
         int bottom = top + randomRectSize;
 
-        return new Square(new Rect(left, top, right, bottom), ColorFactory.generateColor());
+        return new Square(new Rect(left, top, right, bottom), color);
     }
 
     @Override
