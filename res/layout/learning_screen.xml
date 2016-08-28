@@ -5,8 +5,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        android:id="@+id/learningScreen"
         android:background="@drawable/learning_background"
+        android:id="@+id/learningScreen"
         tools:context="com.ewareza.com.ewareza.shapegame.app.learning.LearningGameActivity">
 
         <com.ewareza.shapegame.app.components.ScaledImageView
@@ -16,6 +16,7 @@
                 android:background="@drawable/talking_frog_animation"
                 android:layout_marginLeft="@dimen/learning_frog_margin_left"
                 android:layout_gravity="bottom"
+                android:clickable="true"
                 android:layout_marginBottom="@dimen/learning_frog_margin_bottom"/>
 
         <com.ewareza.shapegame.app.components.ScaledLinearLayout

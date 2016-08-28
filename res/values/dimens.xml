@@ -23,7 +23,7 @@
     <!-- START NEW LEARNING/SHAPE GAME/COLOR GAME BUTTONS-->
     <dimen name="main_start_game_button_width">220dp</dimen>
     <dimen name="main_start_game_button_height">140dp</dimen>
-    <dimen name="main_screen_game_name_text_size">8sp</dimen>
+    <dimen name="main_screen_game_name_text_size">16sp</dimen>
 
     <!-- LEARNING -->
 

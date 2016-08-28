@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public abstract class ShapeColorGame extends Game {
     private static GameEngine engine;
     private static List<Integer> gameSpeeds = Arrays.asList(500, 300, 100, 50, 0);
-    private static List<Integer> moveSteps = Arrays.asList(0, 0, 1, 1, 1, 2, 3, 4, 5, 10, 15);
+    private static List<Integer> moveSteps = Arrays.asList(0, 0, 1, 1, 1, 2, 3, 4, 5, 10, 15, 15, 16, 16, 17, 17, 18, 18, 19, 19, 20, 20);
     private static AtomicInteger gameNumber = new AtomicInteger(0);
     private static AtomicInteger currentMoveStep = new AtomicInteger(0);
     private static AtomicInteger currentGameSpeed = new AtomicInteger(0);
@@ -30,10 +30,6 @@ public abstract class ShapeColorGame extends Game {
         currentGameSpeed.set(gameSpeeds.get(Math.min(gameNumber.get(), gameSpeeds.size() - 1)));
     }
 
-    public static int getGameNumber() {
-        return gameNumber.get();
-    }
-
     public static GameEngine getEngine() {
         return engine;
     }
@@ -48,10 +44,6 @@ public abstract class ShapeColorGame extends Game {
 
     public static void updatePhysics() {
         engine.update();
-    }
-
-    public static int getNumberOfDifferentGameSpeeds() {
-        return moveSteps.size();
     }
 
     public static void drawGameTitleShape(Canvas canvas) {

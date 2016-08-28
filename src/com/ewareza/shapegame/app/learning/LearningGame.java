@@ -1,6 +1,7 @@
 package com.ewareza.shapegame.app.learning;
 
 import android.widget.ImageView;
+import com.ewareza.shapegame.domain.shape.AbstractShape;
 import com.ewareza.shapegame.player.SoundResourcesManager;
 
 import java.util.HashMap;
@@ -45,7 +46,9 @@ public enum LearningGame {
 
     public void startPresentingShapes() {
         shouldUpdateScreen.set(true);
-        SoundResourcesManager.playLearningShapePhaseOneDescriptionSound(firstPhaseScreen.getCurrentLearningShape().getName(), firstPhaseScreen.getCurrentLearningShape().getColor());
+        AbstractShape currentLearningShape = firstPhaseScreen.getCurrentLearningShape();
+        if(currentLearningShape != null)
+            SoundResourcesManager.playLearningShapePhaseOneDescriptionSound(currentLearningShape.getName(), currentLearningShape.getColor());
     }
 
     public LearningScreen getLearningScreen() {

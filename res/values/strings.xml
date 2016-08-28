@@ -9,4 +9,6 @@
     <string name="learning">learning</string>
     <string name="shape_game">shapes</string>
     <string name="color_game">colours</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <!--<string name="banner_ad_unit_id">ca-app-pub-6850283427427621/9392128399</string>-->
 </resources>

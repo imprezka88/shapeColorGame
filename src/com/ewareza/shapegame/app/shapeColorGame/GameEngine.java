@@ -9,8 +9,7 @@ import com.ewareza.shapegame.player.SoundResourcesManager;
 import java.util.logging.Logger;
 
 public class GameEngine {
-    private static final
-    Logger logger = Logger.getLogger(GameEngine.class.getName());
+    private static final Logger logger = Logger.getLogger(GameEngine.class.getName());
     private final Object lock = new Object();
     private SingleGame currentSingleGame;
     private String gameType;
@@ -28,6 +27,7 @@ public class GameEngine {
 
     public void update() {
         synchronized (lock) {
+            //@TODO check why sometimes is null reference
             currentSingleGame.update();
         }
     }

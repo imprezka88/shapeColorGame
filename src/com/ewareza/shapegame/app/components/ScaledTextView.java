@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.ewareza.shapegame.app.utils.DimensionScaler;
+import com.ewareza.shapegame.resources.ScaledDimenRes;
 
 public class ScaledTextView extends TextView {
     private ViewGroup.LayoutParams scaledParams;
@@ -26,5 +27,10 @@ public class ScaledTextView extends TextView {
         if(scaledParams == null )
             scaledParams = DimensionScaler.getScaledParams(params);
         super.setLayoutParams(scaledParams);
+    }
+
+    @Override
+    public void setTextSize(float size) {
+        super.setTextSize((float) ScaledDimenRes.getScaledDimenXForValue(size));
     }
 }

@@ -12,10 +12,13 @@ import com.ewareza.shapegame.resources.ScaledDimenRes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public enum FirstPhaseLearningScreen implements LearningScreen {
     INSTANCE;
 
+    private static final Logger Log = Logger.getLogger(FirstPhaseLearningScreen.class.getName());
     public static final int SHAPE_PADDING_BOTTOM = ScaledDimenRes.getLearningPhaseOneShapePaddingBottom();
     public static final int SHAPE_PADDING_RIGHT = ScaledDimenRes.getLearningPhaseOneShapePaddingRight();
     public static final int SHAPE_PADDING_LEFT = ScaledDimenRes.getLearningPhaseOneShapePaddingLeft();
@@ -27,17 +30,18 @@ public enum FirstPhaseLearningScreen implements LearningScreen {
         initLearningShapes();
     }
 
-    AbstractShape getCurrentLearningShape() {
-        /*ShapeFactory shapeFactory = shapeFactories.get(currentLearningShapeNumber.get());
-        return shapeFactory.getGameTitleShape();*/
-
-        return learningShapes.get(currentLearningShapeNumber.get());
+    public synchronized AbstractShape getCurrentLearningShape() {
+        return learningShapes.size() > 0 ? learningShapes.get(currentLearningShapeNumber.get()) : null;
     }
 
     public void learnNextShape() {
         if (isFirstLearningPhase()) {
-            currentLearningShapeNumber.incrementAndGet();
-            SoundResourcesManager.playLearningShapePhaseOneDescriptionSound(getCurrentLearningShape().getName(), getCurrentLearningShape().getColor());
+            if(currentLearningShapeNumber.get() < learningShapes.size() - 1) {
+                currentLearningShapeNumber.incrementAndGet();
+                AbstractShape currentLearningShape = getCurrentLearningShape();
+                if(currentLearningShape != null)
+                    SoundResourcesManager.playLearningShapePhaseOneDescriptionSound(currentLearningShape.getName(), currentLearningShape.getColor());
+            }
         } else
             LearningGame.INSTANCE.onPhaseOneFinished();
     }

@@ -16,6 +16,8 @@ import com.ewareza.shapegame.app.learning.LearningGameActivity;
 import com.ewareza.shapegame.app.shapeColorGame.ShapeGameActivity;
 import com.ewareza.shapegame.app.utils.GameUtils;
 import com.ewareza.shapegame.player.SoundResourcesManager;
+import com.google.android.gms.*;
+
 
 public class MainScreenActivity extends CountingLocalizedActivity {
     @Override

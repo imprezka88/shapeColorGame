@@ -36,7 +36,7 @@ public class LearningGameActivity extends CountingLocalizedActivity {
         initFirstLearningPhaseView();
         initStartShapeGameButton();
         initStartColorGameButton();
-        setFrogViewAnimation();
+        initLearningFrogAnimation();
     }
 
     private void initFirstLearningPhaseView() {
@@ -74,10 +74,18 @@ public class LearningGameActivity extends CountingLocalizedActivity {
         });
     }
 
-    private void setFrogViewAnimation() {
+    private void initLearningFrogAnimation() {
         ImageView frogView = (ImageView) findViewById(R.id.learningFrog);
         ImageResources imageResources = ImageResources.getInstance();
         imageResources.setTalkingFrogAnimation((AnimationDrawable) frogView.getBackground());
+
+        frogView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SoundResourcesManager.stopPlayingSounds();
+                LearningGame.getInstance().onPhaseOneFinished();
+            }
+        });
     }
 
     private void initShapeAnimations() {
