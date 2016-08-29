@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ewareza.android.R;
 import com.ewareza.shapegame.app.CountingLocalizedActivity;
@@ -16,8 +20,10 @@ import com.ewareza.shapegame.app.learning.LearningGameActivity;
 import com.ewareza.shapegame.app.shapeColorGame.ShapeGameActivity;
 import com.ewareza.shapegame.app.utils.GameUtils;
 import com.ewareza.shapegame.player.SoundResourcesManager;
-import com.google.android.gms.*;
-
+import com.google.ads.mediation.admob.AdMobAdapter;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 
 public class MainScreenActivity extends CountingLocalizedActivity {
     @Override
@@ -29,6 +35,23 @@ public class MainScreenActivity extends CountingLocalizedActivity {
 
         initListenersOfButtons();
         initTextFont();
+        addAd();
+    }
+
+    private void addAd() {
+        LinearLayout container = (LinearLayout) findViewById(R.id.adViewContainer);
+        AdView adView = new AdView(getApplicationContext());
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.gravity = Gravity.LEFT;
+        adView.setLayoutParams(layoutParams);
+        adView.setAdSize(AdSize.BANNER);
+        adView.setAdUnitId(getResources().getString(R.string.banner_ad_unit_id));
+        container.addView(adView);
+
+        AdRequest adRequest = new AdRequest.Builder()
+                .build();
+
+        adView.loadAd(adRequest);
     }
 
     private void initTextFont() {

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "574750129787",
+    "firebase_url": "https://shapes-and-colours.firebaseio.com",
+    "project_id": "shapes-and-colours",
+    "storage_bucket": "shapes-and-colours.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574750129787:android:a343919f3286f069",
+        "android_client_info": {
+          "package_name": "com.ewareza.shapegame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574750129787-tmq58nahlcd0cevh3iko0nqqkvl9giag.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBi0Dvz_zt0gNXyI3iiK9GDm17Q9Uw_TJs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
